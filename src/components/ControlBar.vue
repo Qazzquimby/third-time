@@ -1,16 +1,17 @@
 <template>
-  <div id="bar" class="q-px-md row">
+  <div id="bar" class="bar q-px-md row">
     <div id="display" class="col" style="height: 100px">
       <q-icon
-        id="working-icon"
+        id="bar-icon"
+        class="bar-icon"
         :name="icon"
         tag="span"
         size="100px"
         style="position: absolute; left: -12px"
-        class="work-highlight"
+        :style="'color:' + iconColor"
       />
       <span
-        id="working-text"
+        id="bar-text"
         class="text-h3 text-black"
         style="position: absolute; padding-top: 24px"
       >
@@ -34,22 +35,6 @@
 defineProps({
   icon: String,
   text: String,
+  iconColor: { type: String, required: true },
 });
 </script>
-
-<style lang="scss">
-#bar {
-  height: 100px;
-  width: 500px;
-  background: linear-gradient(
-      270deg,
-      rgba(38, 197, 12, 0.3) 0%,
-      rgba(48, 242, 16, 0) 100%
-    ),
-    #1f9e3b;
-}
-
-.work-highlight {
-  color: #23d34a;
-}
-</style>
