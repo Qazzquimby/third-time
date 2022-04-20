@@ -1,7 +1,17 @@
 <template>
   <control-bar :icon="sharpPlayArrow" :text="text" icon-color="#23d34a">
-    <q-btn class="self-center q-pa-sm q-ma-sm" color="black" icon="pause" />
-    <q-btn class="self-center q-pa-sm q-ma-sm" color="black" icon="stop" />
+    <q-btn
+      class="self-center q-pa-sm q-ma-sm"
+      color="black"
+      icon="pause"
+      @click="$emit('pause')"
+    />
+    <q-btn
+      class="self-center q-pa-sm q-ma-sm"
+      color="black"
+      icon="stop"
+      @click="$emit('stop')"
+    />
   </control-bar>
 </template>
 
@@ -9,6 +19,8 @@
 import { sharpPlayArrow } from '@quasar/extras/material-icons-sharp';
 import { computed } from 'vue';
 import ControlBar from 'components/ControlBar.vue';
+
+defineEmits(['pause', 'stop']);
 
 const props = defineProps({
   sessionDurationMinutes: Number,

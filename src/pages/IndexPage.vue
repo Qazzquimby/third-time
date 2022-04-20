@@ -4,9 +4,20 @@
     <div v-if="currentAction.name === WORKING.name">
       <working-control-bar
         :session-duration-minutes="currentSessionDurationMinutes"
+        @pause="pause"
+        @stop="stop"
       ></working-control-bar>
+      <stored-rest-bar
+        :stored-rest-minutes="storedRestMinutes"
+      ></stored-rest-bar>
     </div>
-    <stored-rest-bar :stored-rest-minutes="storedRestMinutes"></stored-rest-bar>
+    <div v-else-if="currentAction.name === RESTING.name">
+      <resting-control-bar
+        :stored-rest-minutes="storedRestMinutes"
+        @start="start"
+        @stop="stop"
+      ></resting-control-bar>
+    </div>
   </div>
   <!--  </q-page>-->
 </template>
@@ -16,6 +27,7 @@
 import WorkingControlBar from 'components/WorkingControlBar.vue';
 import StoredRestBar from 'components/StoredRestBar.vue';
 import { ref } from 'vue';
+import RestingControlBar from 'components/RestingControlBar.vue';
 
 const currentSessionDurationMinutes = ref(0);
 const storedRestMinutes = ref(0);
@@ -42,6 +54,19 @@ const STOPPED = {
     storedRestMinutes.value = Math.max(0, storedRestMinutes.value - 1);
   },
 };
+
+function pause() {
+  currentAction.value = RESTING;
+}
+
+function start() {
+  console.log('ye');
+  currentAction.value = WORKING;
+}
+
+function stop() {
+  currentAction.value = STOPPED;
+}
 
 const currentAction = ref(WORKING);
 

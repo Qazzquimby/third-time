@@ -4,8 +4,14 @@
       class="self-center q-pa-sm q-ma-sm"
       color="black"
       :icon="sharpPlayArrow"
+      @click="$emit('start')"
     />
-    <q-btn class="self-center q-pa-sm q-ma-sm" color="black" icon="stop" />
+    <q-btn
+      class="self-center q-pa-sm q-ma-sm"
+      color="black"
+      icon="stop"
+      @click="$emit('stop')"
+    />
   </control-bar>
 </template>
 
@@ -17,9 +23,12 @@ import {
 import { computed } from 'vue';
 import ControlBar from 'components/ControlBar.vue';
 
+defineEmits(['start', 'stop']);
+
 const props = defineProps({
   storedRestMinutes: { type: Number, required: true },
 });
+
 const text = computed(() => {
   return `Resting: ${Math.floor(props.storedRestMinutes)}m`;
   // Todo support hours.
