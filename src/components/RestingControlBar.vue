@@ -1,20 +1,27 @@
 <template>
   <control-bar :icon="sharpPause" :text="text" icon-color="#d38123">
-    <q-btn class="self-center q-pa-sm q-ma-sm" color="black" icon="pause" />
+    <q-btn
+      class="self-center q-pa-sm q-ma-sm"
+      color="black"
+      :icon="sharpPlayArrow"
+    />
     <q-btn class="self-center q-pa-sm q-ma-sm" color="black" icon="stop" />
   </control-bar>
 </template>
 
 <script setup lang="ts">
-import { sharpPause } from '@quasar/extras/material-icons-sharp';
+import {
+  sharpPlayArrow,
+  sharpPause,
+} from '@quasar/extras/material-icons-sharp';
 import { computed } from 'vue';
 import ControlBar from 'components/ControlBar.vue';
 
 const props = defineProps({
-  storedRestMinutes: Number,
+  storedRestMinutes: { type: Number, required: true },
 });
 const text = computed(() => {
-  return `Resting: ${props.storedRestMinutes}m`;
+  return `Resting: ${Math.floor(props.storedRestMinutes)}m`;
   // Todo support hours.
 });
 </script>
