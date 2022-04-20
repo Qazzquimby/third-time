@@ -7,9 +7,6 @@
         @pause="pause"
         @stop="stop"
       ></working-control-bar>
-      <stored-rest-bar
-        :stored-rest-minutes="storedRestMinutes"
-      ></stored-rest-bar>
     </div>
     <div v-else-if="currentAction.name === RESTING.name">
       <resting-control-bar
@@ -18,6 +15,18 @@
         @stop="stop"
       ></resting-control-bar>
     </div>
+
+    <div
+      v-if="
+        currentAction.name === WORKING.name ||
+        currentAction.name === STOPPED.name
+      "
+    >
+      <stored-rest-bar
+        :stored-rest-minutes="storedRestMinutes"
+      ></stored-rest-bar>
+    </div>
+    <total-work-bar :total-work-minutes="totalWorkMinutes"></total-work-bar>
   </div>
   <!--  </q-page>-->
 </template>
@@ -28,6 +37,7 @@ import WorkingControlBar from 'components/WorkingControlBar.vue';
 import StoredRestBar from 'components/StoredRestBar.vue';
 import { ref } from 'vue';
 import RestingControlBar from 'components/RestingControlBar.vue';
+import TotalWorkBar from 'components/TotalWorkBar.vue';
 
 const currentSessionDurationMinutes = ref(0);
 const storedRestMinutes = ref(0);
@@ -60,7 +70,7 @@ function pause() {
 }
 
 function start() {
-  console.log('ye');
+  currentSessionDurationMinutes.value = 0;
   currentAction.value = WORKING;
 }
 
@@ -70,7 +80,7 @@ function stop() {
 
 const currentAction = ref(WORKING);
 
-const workingTick = setInterval(() => {
+setInterval(() => {
   currentAction.value.onTick();
 }, 1000); // Todo add `60 * ` to make it minutes, not seconds
 </script>
