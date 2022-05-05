@@ -1,60 +1,79 @@
-let timerRunning = false;
-let currentSessionDurationMinutes = 0;
-let storedRestMinutes = 0;
-let totalWorkMinutes = 0;
+async function setTimers(value) {
+  console.log('setting timers to', value);
+  await chrome.storage.local.set(value);
+}
+
+// Can't import lodash here
+const isEmpty = (obj) =>
+  [Object, Array].includes((obj || {}).constructor) &&
+  !Object.entries(obj || {}).length;
+
+async function getTimers() {
+  let timers = await chrome.storage.local.get([
+    'currentSessionDurationMinutes',
+    'storedRestMinutes',
+    'totalWorkMinutes',
+  ]);
+  if (isEmpty(timers)) {
+    console.log('Timers are empty, setting to 0.');
+    timers = {
+      currentSessionDurationMinutes: 0,
+      storedRestMinutes: 0,
+      totalWorkMinutes: 0,
+    };
+  }
+  return timers;
+}
 
 const WORKING = {
   name: 'working',
-  onTick: () => {
-    currentSessionDurationMinutes += 1;
-    storedRestMinutes += 1 / 3;
-    totalWorkMinutes += 1;
-  }
+  onTick: async () => {
+    const timers = await getTimers();
+    timers.currentSessionDurationMinutes += 1;
+    timers.storedRestMinutes += 1 / 3;
+    timers.totalWorkMinutes += 1;
+    await setTimers(timers);
+  },
 };
 const RESTING = {
   name: 'resting',
-  onTick: () => {
-    storedRestMinutes -= 1;
-  }
+  onTick: async () => {
+    const timers = await getTimers();
+    timers.storedRestMinutes -= 1;
+    await setTimers(timers);
+  },
 };
 const STOPPED = {
   name: 'stopped',
-  onTick: () => {
-    // decrease to minimum of 0
-    storedRestMinutes = Math.max(0, storedRestMinutes - 1);
-  }
+  onTick: async () => {
+    const timers = await getTimers();
+    timers.storedRestMinutes = Math.max(0, timers.storedRestMinutes - 1);
+    await setTimers(timers);
+  },
 };
 
 let currentAction = WORKING;
-
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   if (request.cmd === 'TIMER_START') {
-//     currentSessionDurationMinutes.value = 0;
-//     currentAction.value = WORKING;
-//   } else if (request.cmd === 'TIMER_PAUSE') {
-//     currentAction.value = RESTING;
-//   } else if (request.cmd === 'TIMER_STOP') {
-//     currentAction.value = STOPPED;
-//   }
-// });
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.onClicked.addListener((/* tab */) => {
     // Opens our extension in a new browser window.
     // Only if a popup isn't defined in the manifest.
-    chrome.tabs.create({
-      url: chrome.runtime.getURL('www/index.html')
-    }, (/* newTab */) => {
-      // Tab opened.
-    });
+    chrome.tabs.create(
+      {
+        url: chrome.runtime.getURL('www/index.html'),
+      },
+      (/* newTab */) => {
+        // Tab opened.
+      }
+    );
   });
 });
 
-export default function(bridge /* , allActiveConnections */) {
-  bridge.on('storage.get', event => {
+export default async function (bridge /* , allActiveConnections */) {
+  bridge.on('storage.get', (event) => {
     const payload = event.data;
     if (payload.key === null) {
-      chrome.storage.local.get(null, r => {
+      chrome.storage.local.get(null, (r) => {
         const result = [];
 
         // Group the items up into an array to take advantage of the bridge's chunk splitting.
@@ -64,20 +83,20 @@ export default function(bridge /* , allActiveConnections */) {
         bridge.send(event.eventResponseKey, result);
       });
     } else {
-      chrome.storage.local.get([payload.key], r => {
+      chrome.storage.local.get([payload.key], (r) => {
         bridge.send(event.eventResponseKey, r[payload.key]);
       });
     }
   });
 
-  bridge.on('storage.set', event => {
+  bridge.on('storage.set', (event) => {
     const payload = event.data;
     chrome.storage.local.set({ [payload.key]: payload.data }, () => {
       bridge.send(event.eventResponseKey, payload.data);
     });
   });
 
-  bridge.on('storage.remove', event => {
+  bridge.on('storage.remove', (event) => {
     const payload = event.data;
     chrome.storage.local.remove(payload.key, () => {
       bridge.send(event.eventResponseKey, payload.data);
@@ -85,7 +104,7 @@ export default function(bridge /* , allActiveConnections */) {
   });
 
   bridge.on('TIMER_START', () => {
-    currentSessionDurationMinutes.value = 0;
+    set({ currentSessionDurationMinutes: 0 });
     currentAction.value = WORKING;
   });
   bridge.on('TIMER_PAUSE', () => {
@@ -95,18 +114,14 @@ export default function(bridge /* , allActiveConnections */) {
     currentAction.value = STOPPED;
   });
 
-  if (!timerRunning) {
-    timerRunning = true;
-    setInterval(() => {
-      currentAction.onTick();
-      bridge.send('ON_TICK_TIMERS', {
-        currentSessionDurationMinutes,
-        storedRestMinutes,
-        totalWorkMinutes,
-      })
-    }, 1000*60);
-  }
-
+  chrome.alarms.create({ periodInMinutes: 0.1 });
+  chrome.alarms.onAlarm.addListener(() => {
+    (async function () {
+      await currentAction.onTick();
+      let timers = await getTimers();
+      bridge.send('ON_TICK_TIMERS', timers);
+    })();
+  });
 
   /*
   // EXAMPLES

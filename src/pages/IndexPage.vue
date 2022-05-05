@@ -59,8 +59,6 @@ function stop() {
   $q.bex.send('TIMER_STOP')
 }
 
-console.log($q);
-
 $q.bex.on('ON_TICK_TIMERS', (
   response: { data: {
     currentSessionDurationMinutes: number,
@@ -70,7 +68,7 @@ $q.bex.on('ON_TICK_TIMERS', (
   }
 ) => {
   const timers = response.data
-  console.log(timers);
+  console.log('timers', timers);
   currentSessionDurationMinutes.value = timers.currentSessionDurationMinutes;
   storedRestMinutes.value = timers.storedRestMinutes;
   totalWorkMinutes.value = timers.totalWorkMinutes;
