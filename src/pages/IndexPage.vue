@@ -81,16 +81,19 @@ onBeforeMount(() => {
 
 function start() {
   console.log('sending start');
+  timerMode.value = 'working';
   $q.bex.send('TIMER_START');
 }
 
 function pause() {
   console.log('sending pause');
+  timerMode.value = 'resting';
   $q.bex.send('TIMER_PAUSE');
 }
 
 function stop() {
   console.log('sending stop');
+  timerMode.value = 'stopped';
   $q.bex.send('TIMER_STOP');
 }
 
