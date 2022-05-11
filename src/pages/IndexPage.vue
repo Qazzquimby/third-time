@@ -18,8 +18,7 @@
 
     <div
       v-if="
-        currentAction.name === 'working' ||
-        currentAction.name === 'stopped'
+        currentAction.name === 'working' || currentAction.name === 'stopped'
       "
     >
       <stored-rest-bar
@@ -40,38 +39,59 @@ import RestingControlBar from 'components/RestingControlBar.vue';
 import TotalWorkBar from 'components/TotalWorkBar.vue';
 import { useQuasar } from 'quasar';
 
-const $q = useQuasar()
+const $q = useQuasar();
 
-const currentAction = {name: 'working'}
-const currentSessionDurationMinutes = ref(0)
+const currentAction = { name: 'working' };
+const currentSessionDurationMinutes = ref(0);
 const storedRestMinutes = ref(0);
 const totalWorkMinutes = ref(0);
 
+// @ts-ignore chrome is present but not found
+chrome.storage.local
+  .get([
+    'currentSessionDurationMinutes',
+    'storedRestMinutes',
+    'totalWorkMinutes',
+  ])
+  .then(
+    (timers: {
+      currentSessionDurationMinutes: number;
+      storedRestMinutes: number;
+      totalWorkMinutes: number;
+    }) => {
+      currentSessionDurationMinutes.value =
+        timers.currentSessionDurationMinutes;
+      storedRestMinutes.value = timers.storedRestMinutes;
+      totalWorkMinutes.value = timers.totalWorkMinutes;
+    }
+  );
+
 function start() {
-  $q.bex.send('TIMER_START')
+  $q.bex.send('TIMER_START');
 }
 
 function pause() {
-  $q.bex.send('TIMER_PAUSE')
+  $q.bex.send('TIMER_PAUSE');
 }
 
 function stop() {
-  $q.bex.send('TIMER_STOP')
+  $q.bex.send('TIMER_STOP');
 }
 
-$q.bex.on('ON_TICK_TIMERS', (
-  response: { data: {
-    currentSessionDurationMinutes: number,
-    storedRestMinutes: number,
-    totalWorkMinutes: number
-    }
+$q.bex.on(
+  'ON_TICK_TIMERS',
+  (response: {
+    data: {
+      currentSessionDurationMinutes: number;
+      storedRestMinutes: number;
+      totalWorkMinutes: number;
+    };
+  }) => {
+    const timers = response.data;
+    console.log('timers', timers);
+    currentSessionDurationMinutes.value = timers.currentSessionDurationMinutes;
+    storedRestMinutes.value = timers.storedRestMinutes;
+    totalWorkMinutes.value = timers.totalWorkMinutes;
   }
-) => {
-  const timers = response.data
-  console.log('timers', timers);
-  currentSessionDurationMinutes.value = timers.currentSessionDurationMinutes;
-  storedRestMinutes.value = timers.storedRestMinutes;
-  totalWorkMinutes.value = timers.totalWorkMinutes;
-})
-
+);
 </script>
