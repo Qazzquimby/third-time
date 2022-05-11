@@ -154,6 +154,16 @@ export default async function (bridge /* , allActiveConnections */) {
     console.log('Received stop');
     setTimerMode(STOPPED);
   });
+  bridge.on('TIMER_RESET', () => {
+    (async function () {
+      const timers = await getTimers();
+      timers.currentSessionDurationMinutes = 0;
+      timers.storedRestMinutes = 0;
+      timers.totalWorkMinutes = 0;
+      await setTimers(timers);
+      bridge.send('ON_TICK_TIMERS', timers);
+    })();
+  });
 
   chrome.alarms.create({ periodInMinutes: 0.1 });
   chrome.alarms.onAlarm.addListener(() => {
