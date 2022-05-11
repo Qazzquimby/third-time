@@ -40,6 +40,11 @@ async function setTimers(value) {
 
 const WORKING = {
   name: 'working',
+  onEnter: async () => {
+    const timers = await getTimers();
+    timers.currentSessionDurationMinutes = 0;
+    await setTimers(timers);
+  },
   onTick: async () => {
     const timers = await getTimers();
     timers.currentSessionDurationMinutes += 1;
@@ -50,6 +55,9 @@ const WORKING = {
 };
 const RESTING = {
   name: 'resting',
+  onEnter: async () => {
+    //pass
+  },
   onTick: async () => {
     const timers = await getTimers();
     timers.storedRestMinutes -= 1;
@@ -58,6 +66,9 @@ const RESTING = {
 };
 const STOPPED = {
   name: 'stopped',
+  onEnter: async () => {
+    //pass
+  },
   onTick: async () => {
     const timers = await getTimers();
     timers.storedRestMinutes = Math.max(0, timers.storedRestMinutes - 1);
@@ -79,6 +90,7 @@ async function getTimerMode() {
 
 async function setTimerMode(timerMode) {
   await setTimerModeString(timerMode.name);
+  timerMode.onEnter();
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -132,7 +144,6 @@ export default async function (bridge /* , allActiveConnections */) {
 
   bridge.on('TIMER_START', () => {
     console.log('Received start');
-    set({ currentSessionDurationMinutes: 0 });
     setTimerMode(WORKING);
   });
   bridge.on('TIMER_PAUSE', () => {
