@@ -42,6 +42,7 @@ import WorkingControlBar from 'components/WorkingControlBar.vue';
 import StoredRestBar from 'components/StoredRestBar.vue';
 import { onBeforeMount, ref } from 'vue';
 import RestingControlBar from 'components/RestingControlBar.vue';
+import StoppingControlBar from 'components/StoppingControlBar.vue';
 import TotalWorkBar from 'components/TotalWorkBar.vue';
 import { useQuasar } from 'quasar';
 
