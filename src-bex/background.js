@@ -1,12 +1,20 @@
-async function setTimers(value) {
-  console.log('setting timers to', value);
-  await chrome.storage.local.set(value);
-}
-
 // Can't import lodash here
 const isEmpty = (obj) =>
   [Object, Array].includes((obj || {}).constructor) &&
   !Object.entries(obj || {}).length;
+
+async function getTimerModeString() {
+  let mode = (await chrome.storage.local.get(['timerMode'])).timerMode;
+  if (isEmpty(mode)) {
+    console.log('timerMode unset, setting to stopped');
+    mode = 'stopped';
+  }
+  return mode;
+}
+
+async function setTimerModeString(newTimerMode) {
+  await chrome.storage.local.set({ timerMode: newTimerMode });
+}
 
 async function getTimers() {
   let timers = await chrome.storage.local.get([
@@ -23,6 +31,11 @@ async function getTimers() {
     };
   }
   return timers;
+}
+
+async function setTimers(value) {
+  console.log('setting timers to', value);
+  await chrome.storage.local.set(value);
 }
 
 const WORKING = {
@@ -52,7 +65,21 @@ const STOPPED = {
   },
 };
 
-let currentAction = WORKING;
+const timerModeStringToTimerMode = {
+  working: WORKING,
+  resting: RESTING,
+  stopped: STOPPED,
+};
+
+async function getTimerMode() {
+  const timerModeString = await getTimerModeString();
+  console.log({ timerModeString });
+  return timerModeStringToTimerMode[timerModeString];
+}
+
+async function setTimerMode(timerMode) {
+  await setTimerModeString(timerMode.name);
+}
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.onClicked.addListener((/* tab */) => {
@@ -104,20 +131,23 @@ export default async function (bridge /* , allActiveConnections */) {
   });
 
   bridge.on('TIMER_START', () => {
+    console.log('Received start');
     set({ currentSessionDurationMinutes: 0 });
-    currentAction.value = WORKING;
+    setTimerMode(WORKING);
   });
   bridge.on('TIMER_PAUSE', () => {
-    currentAction.value = RESTING;
+    console.log('Received pause');
+    setTimerMode(RESTING);
   });
   bridge.on('TIMER_STOP', () => {
-    currentAction.value = STOPPED;
+    console.log('Received stop');
+    setTimerMode(STOPPED);
   });
 
   chrome.alarms.create({ periodInMinutes: 0.1 });
   chrome.alarms.onAlarm.addListener(() => {
     (async function () {
-      await currentAction.onTick();
+      await (await getTimerMode()).onTick();
       let timers = await getTimers();
       bridge.send('ON_TICK_TIMERS', timers);
     })();
