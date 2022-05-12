@@ -174,7 +174,7 @@ export default async function (bridge /* , allActiveConnections */) {
     })();
   });
 
-  chrome.alarms.create({ periodInMinutes: 0.1 });
+  chrome.alarms.create({ periodInMinutes: 1 });
   chrome.alarms.onAlarm.addListener(() => {
     (async function () {
       await (await getTimerMode()).onTick();
