@@ -61,6 +61,15 @@ const RESTING = {
   onTick: async () => {
     const timers = await getTimers();
     timers.storedRestMinutes -= 1;
+    if (timers.storedRestMinutes <= 0) {
+      chrome.notifications.create('NO_REST_TIME_REMAINING', {
+        type: 'basic',
+        title: 'ThirdTime: Rest Over',
+        message: 'Rest time is over',
+        contextMessage: 'Time to get back to work.',
+        iconUrl: 'icons/icon-48x48.png',
+      });
+    }
     await setTimers(timers);
   },
 };
