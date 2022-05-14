@@ -31,7 +31,7 @@
         "
       >
         <stored-rest-bar
-          :stored-rest-minutes="storedRestSeconds"
+          :stored-rest-seconds="storedRestSeconds"
         ></stored-rest-bar>
       </div>
       <total-work-bar :total-work-seconds="totalWorkSeconds"></total-work-bar>
