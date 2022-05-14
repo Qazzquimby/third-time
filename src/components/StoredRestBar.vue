@@ -5,6 +5,6 @@
 <script setup lang="ts">
 import { makeTimeString } from './models';
 defineProps({
-  storedRestSeconds: Number,
+  storedRestSeconds: { type: Number, required: true },
 });
 </script>
