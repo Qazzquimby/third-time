@@ -58,18 +58,30 @@ const currentSessionDurationSeconds = ref(0);
 const storedRestSeconds = ref(0);
 const totalWorkSeconds = ref(0);
 
+const alerted = ref(false);
+const audio = new Audio(
+  'https://cdn.videvo.net/videvo_files/audio/premium/audio0151/watermarked/Ringtone-Alarm-Smart-Phone-Vibe-Chime-Alarm-or-Alert_COMM-1450_preview.mp3'
+);
+
 const WORKING = {
   name: 'working',
   passTime: (seconds: number) => {
     currentSessionDurationSeconds.value += seconds;
     storedRestSeconds.value += seconds / 3;
     totalWorkSeconds.value += seconds;
+
+    alerted.value = false;
   },
 };
 const RESTING = {
   name: 'resting',
   passTime: (seconds: number) => {
     storedRestSeconds.value -= seconds;
+
+    if (storedRestSeconds.value < 0 && !alerted.value) {
+      audio.play();
+      alerted.value = true;
+    }
   },
 };
 const STOPPED = {
