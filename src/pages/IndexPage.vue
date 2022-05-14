@@ -83,7 +83,7 @@ const ACTIONS = [WORKING, RESTING, STOPPED];
 
 const timerMode = ref(STOPPED);
 
-function onUnload() {
+function onUnload(event: BeforeUnloadEvent) {
   $q.localStorage.set('exitTime', DateTime.now());
   $q.localStorage.set(
     'currentSessionDurationSeconds',
@@ -92,6 +92,13 @@ function onUnload() {
   $q.localStorage.set('storedRestSeconds', storedRestSeconds.value);
   $q.localStorage.set('totalWorkSeconds', totalWorkSeconds.value);
   $q.localStorage.set('timerMode', timerMode.value.name);
+
+  if (timerMode.value.name === RESTING.name) {
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Chrome requires returnValue to be set.
+    event.returnValue = '';
+  }
 }
 
 function isRealNumber(value: number | undefined) {
@@ -99,8 +106,8 @@ function isRealNumber(value: number | undefined) {
 }
 
 onBeforeMount(() => {
-  window.addEventListener('beforeunload', () => {
-    onUnload();
+  window.addEventListener('beforeunload', (event) => {
+    onUnload(event);
   });
 
   const currentTime = DateTime.now();
