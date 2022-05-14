@@ -2,35 +2,39 @@
   <!--  <q-page class="row items-center justify-evenly">-->
   <div style="height: 500px; width: 500px">
     <div v-if="initialized">
-      <div v-if="timerMode === 'working'">
+      <div v-if="timerMode.name === WORKING.name">
         <working-control-bar
-          :session-duration-minutes="currentSessionDurationMinutes"
+          :session-duration-seconds="currentSessionDurationSeconds"
           @pause="pause"
           @stop="stop"
         ></working-control-bar>
       </div>
-      <div v-else-if="timerMode === 'resting'">
+      <div v-else-if="timerMode.name === RESTING.name">
         <resting-control-bar
-          :stored-rest-minutes="storedRestMinutes"
+          :stored-rest-seconds="storedRestSeconds"
           @start="start"
           @stop="stop"
         ></resting-control-bar>
       </div>
-      <div v-else-if="timerMode === 'stopped'">
+      <div v-else-if="timerMode.name === STOPPED.name">
         <stopping-control-bar
-          :stored-rest-minutes="storedRestMinutes"
+          :stored-rest-seconds="storedRestSeconds"
           @start="start"
           @reset="reset"
         ></stopping-control-bar>
       </div>
       <div v-else>Invalid timerMode {{ timerMode }}</div>
 
-      <div v-if="timerMode === 'working' || timerMode === 'stopped'">
+      <div
+        v-if="
+          timerMode.name === WORKING.name || timerMode.name === STOPPED.name
+        "
+      >
         <stored-rest-bar
-          :stored-rest-minutes="storedRestMinutes"
+          :stored-rest-minutes="storedRestSeconds"
         ></stored-rest-bar>
       </div>
-      <total-work-bar :total-work-minutes="totalWorkMinutes"></total-work-bar>
+      <total-work-bar :total-work-seconds="totalWorkSeconds"></total-work-bar>
     </div>
   </div>
   <!--  </q-page>-->
@@ -45,81 +49,108 @@ import RestingControlBar from 'components/RestingControlBar.vue';
 import StoppingControlBar from 'components/StoppingControlBar.vue';
 import TotalWorkBar from 'components/TotalWorkBar.vue';
 import { useQuasar } from 'quasar';
+import { DateTime } from 'luxon';
 
 const $q = useQuasar();
 
 const initialized = ref(false);
-const timerMode = ref('stopped');
-const currentSessionDurationMinutes = ref(0);
-const storedRestMinutes = ref(0);
-const totalWorkMinutes = ref(0);
+const currentSessionDurationSeconds = ref(0);
+const storedRestSeconds = ref(0);
+const totalWorkSeconds = ref(0);
+
+const WORKING = {
+  name: 'working',
+  passTime: (seconds: number) => {
+    currentSessionDurationSeconds.value += seconds;
+    storedRestSeconds.value += seconds / 3;
+    totalWorkSeconds.value += seconds;
+  },
+};
+const RESTING = {
+  name: 'resting',
+  passTime: (seconds: number) => {
+    storedRestSeconds.value -= seconds;
+  },
+};
+const STOPPED = {
+  name: 'stopped',
+  passTime: (seconds: number) => {
+    // decrease to minimum of 0
+    storedRestSeconds.value = Math.max(0, storedRestSeconds.value - seconds);
+  },
+};
+const ACTIONS = [WORKING, RESTING, STOPPED];
+
+const timerMode = ref(STOPPED);
+
+function onUnload() {
+  $q.localStorage.set('exitTime', DateTime.now());
+  $q.localStorage.set(
+    'currentSessionDurationSeconds',
+    currentSessionDurationSeconds.value
+  );
+  $q.localStorage.set('storedRestSeconds', storedRestSeconds.value);
+  $q.localStorage.set('totalWorkSeconds', totalWorkSeconds.value);
+  $q.localStorage.set('timerMode', timerMode.value.name);
+}
+
+function isRealNumber(value: number | undefined) {
+  return typeof value === 'number' && !isNaN(value);
+}
 
 onBeforeMount(() => {
-  // @ts-ignore chrome is present but not found
-  chrome.storage.local
-    .get([
-      'timerMode',
-      'currentSessionDurationMinutes',
-      'storedRestMinutes',
-      'totalWorkMinutes',
-    ])
-    .then(
-      (resp: {
-        timerMode: string;
-        currentSessionDurationMinutes: number;
-        storedRestMinutes: number;
-        totalWorkMinutes: number;
-      }) => {
-        if (!['working', 'resting', 'stopped'].includes(resp.timerMode)) {
-          $q.bex.send('TIMER_RESET');
-        }
-        initialized.value = true;
-        timerMode.value = resp.timerMode;
-        currentSessionDurationMinutes.value =
-          resp.currentSessionDurationMinutes;
-        storedRestMinutes.value = resp.storedRestMinutes;
-        totalWorkMinutes.value = resp.totalWorkMinutes;
-      }
-    );
+  window.addEventListener('beforeunload', () => {
+    onUnload();
+  });
+
+  const currentTime = DateTime.now();
+
+  const storage = $q.localStorage.getAll();
+
+  const exitTime = DateTime.fromISO(storage.exitTime) ?? currentTime;
+
+  if (isRealNumber(storage.currentSessionDurationSeconds)) {
+    currentSessionDurationSeconds.value = storage.currentSessionDurationSeconds;
+  }
+  if (isRealNumber(storage.storedRestSeconds)) {
+    storedRestSeconds.value = storage.storedRestSeconds;
+  }
+  if (isRealNumber(storage.totalWorkSeconds)) {
+    totalWorkSeconds.value = storage.totalWorkSeconds;
+  }
+
+  timerMode.value =
+    ACTIONS.find((mode) => mode.name === storage.timerMode) ?? timerMode.value;
+
+  //floor number
+
+  const passedSeconds = Math.floor(
+    currentTime.diff(exitTime, ['seconds']).seconds
+  );
+  timerMode.value.passTime(passedSeconds);
+
+  initialized.value = true;
 });
 
 function start() {
-  console.log('sending start');
-  timerMode.value = 'working';
-  $q.bex.send('TIMER_START');
+  currentSessionDurationSeconds.value = 0;
+  timerMode.value = WORKING;
 }
 
 function pause() {
-  console.log('sending pause');
-  timerMode.value = 'resting';
-  $q.bex.send('TIMER_PAUSE');
+  timerMode.value = RESTING;
 }
 
 function stop() {
-  console.log('sending stop');
-  timerMode.value = 'stopped';
-  $q.bex.send('TIMER_STOP');
+  timerMode.value = STOPPED;
 }
 
 function reset() {
-  console.log('sending reset');
-  $q.bex.send('TIMER_RESET');
+  console.log('resetting');
+  // $q.bex.send('TIMER_RESET');
 }
 
-$q.bex.on(
-  'ON_TICK_TIMERS',
-  (response: {
-    data: {
-      currentSessionDurationMinutes: number;
-      storedRestMinutes: number;
-      totalWorkMinutes: number;
-    };
-  }) => {
-    const timers = response.data;
-    console.log('timers', timers);
-    currentSessionDurationMinutes.value = timers.currentSessionDurationMinutes;
-    storedRestMinutes.value = timers.storedRestMinutes;
-    totalWorkMinutes.value = timers.totalWorkMinutes;
-  }
-);
+setInterval(() => {
+  timerMode.value.passTime(1);
+}, 1000);
 </script>
