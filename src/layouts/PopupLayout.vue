@@ -1,19 +1,9 @@
 <template>
   <q-layout>
-    <!--    view="lHh Lpr lFf">-->
-    <q-header elevated>
-
-      Title
-
-    </q-header>
-
     <q-page-container>
-      <router-view/>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>
