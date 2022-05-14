@@ -5,6 +5,7 @@ const isEmpty = (obj) =>
 
 async function getTimerModeString() {
   let mode = (await chrome.storage.local.get(['timerMode'])).timerMode;
+  console.log('loading timerMode', mode);
   if (isEmpty(mode)) {
     console.log('timerMode unset, setting to stopped');
     mode = 'stopped';
@@ -13,6 +14,7 @@ async function getTimerModeString() {
 }
 
 async function setTimerModeString(newTimerMode) {
+  console.log('setting timer mode', newTimerMode);
   await chrome.storage.local.set({ timerMode: newTimerMode });
 }
 
@@ -165,6 +167,7 @@ export default async function (bridge /* , allActiveConnections */) {
   });
   bridge.on('TIMER_RESET', () => {
     (async function () {
+      await setTimerMode(STOPPED);
       const timers = await getTimers();
       timers.currentSessionDurationMinutes = 0;
       timers.storedRestMinutes = 0;
