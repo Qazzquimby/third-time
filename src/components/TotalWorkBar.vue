@@ -1,9 +1,10 @@
 <template>
-  <div>Total Work: {{ totalWorkMinutes }}m</div>
+  <div>Total Work: {{ makeTimeString(totalWorkSeconds) }}</div>
 </template>
 
 <script setup lang="ts">
+import { makeTimeString } from './models';
 defineProps({
-  totalWorkMinutes: Number,
+  totalWorkSeconds: { type: Number, required: true },
 });
 </script>

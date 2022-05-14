@@ -19,16 +19,16 @@
 import { sharpPlayArrow } from '@quasar/extras/material-icons-sharp';
 import { computed } from 'vue';
 import ControlBar from 'components/ControlBar.vue';
+import { makeTimeString } from 'components/models';
 
 defineEmits(['start', 'reset']);
 
 const props = defineProps({
-  storedRestMinutes: { type: Number, required: true },
+  storedRestSeconds: { type: Number, required: true },
 });
 
 const text = computed(() => {
-  return `Stopped: ${Math.floor(props.storedRestMinutes)}m`;
-  // Todo support hours.
+  return `Stopped: ${makeTimeString(props.storedRestSeconds)}`;
 });
 </script>
 

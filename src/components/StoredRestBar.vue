@@ -1,9 +1,10 @@
 <template>
-  <div>Stored rest: {{ Math.floor(storedRestMinutes) }}m</div>
+  <div>Stored rest: {{ makeTimeString(storedRestSeconds) }}</div>
 </template>
 
 <script setup lang="ts">
+import { makeTimeString } from './models';
 defineProps({
-  storedRestMinutes: Number,
+  storedRestSeconds: Number,
 });
 </script>

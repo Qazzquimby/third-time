@@ -19,15 +19,19 @@
 import { sharpPlayArrow } from '@quasar/extras/material-icons-sharp';
 import { computed } from 'vue';
 import ControlBar from 'components/ControlBar.vue';
+import { makeTimeString } from 'components/models';
 
 defineEmits(['pause', 'stop']);
 
 const props = defineProps({
-  sessionDurationMinutes: Number,
+  sessionDurationSeconds: {
+    type: Number,
+    required: true,
+  },
 });
+
 const text = computed(() => {
-  return `Working: ${props.sessionDurationMinutes}m`;
-  // Todo support hours.
+  return `Working: ${makeTimeString(props.sessionDurationSeconds)}`;
 });
 </script>
 
