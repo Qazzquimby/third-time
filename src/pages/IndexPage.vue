@@ -141,8 +141,6 @@ onBeforeMount(() => {
   timerMode.value =
     ACTIONS.find((mode) => mode.name === storage.timerMode) ?? timerMode.value;
 
-  //floor number
-
   const passedSeconds = Math.floor(
     currentTime.diff(exitTime, ['seconds']).seconds
   );
