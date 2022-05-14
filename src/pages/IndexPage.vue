@@ -70,6 +70,9 @@ onBeforeMount(() => {
         storedRestMinutes: number;
         totalWorkMinutes: number;
       }) => {
+        if (!['working', 'resting', 'stopped'].includes(resp.timerMode)) {
+          $q.bex.send('TIMER_RESET');
+        }
         initialized.value = true;
         timerMode.value = resp.timerMode;
         currentSessionDurationMinutes.value =
