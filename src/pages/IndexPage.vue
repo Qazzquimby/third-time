@@ -50,7 +50,6 @@ import StoppingControlBar from 'components/StoppingControlBar.vue';
 import TotalWorkBar from 'components/TotalWorkBar.vue';
 import { useQuasar } from 'quasar';
 import { DateTime } from 'luxon';
-
 const $q = useQuasar();
 
 const initialized = ref(false);
@@ -164,7 +163,9 @@ function stop() {
 
 function reset() {
   console.log('resetting');
-  // $q.bex.send('TIMER_RESET');
+  currentSessionDurationSeconds.value = 0;
+  storedRestSeconds.value = 0;
+  totalWorkSeconds.value = 0;
 }
 
 setInterval(() => {
