@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     parser: require.resolve('@typescript-eslint/parser'),
     extraFileExtensions: ['.vue'],
+    ecmaVersion: '2021', // Allows for the parsing of modern ECMAScript features
   },
 
   env: {
