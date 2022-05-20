@@ -1,37 +1,35 @@
 <template>
   <!--  <q-page class="row items-center justify-evenly">-->
-  <div style="height: 500px; width: 500px">
-    <div v-if="initialized">
-      <div v-if="timerMode === WORKING">
-        <working-control-bar
-          :session-duration-seconds="currentSessionDurationSeconds"
-          @pause="pause"
-          @stop="stop"
-        ></working-control-bar>
-      </div>
-      <div v-else-if="timerMode === RESTING">
-        <resting-control-bar
-          :stored-rest-seconds="storedRestSeconds"
-          @start="start"
-          @stop="stop"
-        ></resting-control-bar>
-      </div>
-      <div v-else-if="timerMode === STOPPED">
-        <stopping-control-bar
-          :stored-rest-seconds="storedRestSeconds"
-          @start="start"
-          @reset="reset"
-        ></stopping-control-bar>
-      </div>
-      <div v-else>Invalid timerMode {{ timerMode }}</div>
-
-      <div v-if="timerMode === WORKING || timerMode === STOPPED">
-        <stored-rest-bar
-          :stored-rest-seconds="storedRestSeconds"
-        ></stored-rest-bar>
-      </div>
-      <total-work-bar :total-work-seconds="totalWorkSeconds"></total-work-bar>
+  <div style="width: 500px">
+    <div v-if="timerMode === WORKING">
+      <working-control-bar
+        :session-duration-seconds="currentSessionDurationSeconds"
+        @pause="pause"
+        @stop="stop"
+      ></working-control-bar>
     </div>
+    <div v-else-if="timerMode === RESTING">
+      <resting-control-bar
+        :stored-rest-seconds="storedRestSeconds"
+        @start="start"
+        @stop="stop"
+      ></resting-control-bar>
+    </div>
+    <div v-else-if="timerMode === STOPPED">
+      <stopping-control-bar
+        :stored-rest-seconds="storedRestSeconds"
+        @start="start"
+        @reset="reset"
+      ></stopping-control-bar>
+    </div>
+    <div v-else>Invalid timerMode {{ timerMode }}</div>
+
+    <div v-if="timerMode === WORKING || timerMode === STOPPED">
+      <stored-rest-bar
+        :stored-rest-seconds="storedRestSeconds"
+      ></stored-rest-bar>
+    </div>
+    <total-work-bar :total-work-seconds="totalWorkSeconds"></total-work-bar>
   </div>
 
   <div>currentTime {{ currentTime }}</div>
@@ -54,8 +52,8 @@ import TotalWorkBar from 'components/TotalWorkBar.vue';
 import { useQuasar } from 'quasar';
 import { DateTime } from 'luxon';
 const $q = useQuasar();
+import { useStorage } from '@vueuse/core';
 
-const alerted = ref(false);
 const audio = new Audio(
   'https://cdn.videvo.net/videvo_files/audio/premium/audio0151/watermarked/Ringtone-Alarm-Smart-Phone-Vibe-Chime-Alarm-or-Alert_COMM-1450_preview.mp3'
 );
@@ -65,14 +63,18 @@ const initialized = ref(false);
 const WORKING = 'working';
 const RESTING = 'resting';
 const STOPPED = 'stopped';
-const ACTIONS = [WORKING, RESTING, STOPPED];
 
-const timerMode = ref(STOPPED);
+const timerMode = useStorage('timerMode', STOPPED);
 const currentTime = ref(DateTime.now());
 
-const modeChangeTime = ref(DateTime.now());
-const oldStoredRestSeconds = ref(0);
-const oldTotalWorkSeconds = ref(0);
+const modeChangeTime = useStorage('modeChangeTime', DateTime.now(), undefined, {
+  serializer: {
+    read: (v: string) => DateTime.fromISO(v),
+    write: (v: DateTime) => v.toISO(),
+  },
+});
+const oldStoredRestSeconds = useStorage('oldStoredRestSeconds', 0);
+const oldTotalWorkSeconds = useStorage('oldTotalWorkSeconds', 0);
 
 const WORK_TO_REST_RATIO = 3;
 
@@ -99,7 +101,7 @@ const newEarnedRest = computed(() => {
 });
 
 const newSpentRest = computed(() => {
-  if (timerMode.value === RESTING) {
+  if (timerMode.value === RESTING || timerMode.value === STOPPED) {
     return timeSinceModeChange.value;
   } else {
     return 0;
@@ -107,7 +109,12 @@ const newSpentRest = computed(() => {
 });
 
 const storedRestSeconds = computed(() => {
-  return oldStoredRestSeconds.value + newEarnedRest.value - newSpentRest.value;
+  let result =
+    oldStoredRestSeconds.value + newEarnedRest.value - newSpentRest.value;
+  if (timerMode.value === STOPPED) {
+    result = Math.max(0, result);
+  }
+  return result;
 });
 
 const totalWorkSeconds = computed(() => {
@@ -121,12 +128,6 @@ watch(storedRestSeconds, (newSeconds, oldSeconds) => {
 });
 
 function onUnload(event: BeforeUnloadEvent) {
-  $q.localStorage.set('timerMode', timerMode.value);
-  $q.localStorage.set('modeChangeTime', modeChangeTime.value);
-
-  $q.localStorage.set('oldStoredRestSeconds', oldStoredRestSeconds.value);
-  $q.localStorage.set('oldTotalWorkSeconds', oldTotalWorkSeconds.value);
-
   if (timerMode.value === RESTING) {
     // Cancel the event as stated by the standard.
     event.preventDefault();
@@ -135,31 +136,10 @@ function onUnload(event: BeforeUnloadEvent) {
   }
 }
 
-function isRealNumber(value: number | undefined) {
-  return typeof value === 'number' && !isNaN(value);
-}
-
 onBeforeMount(() => {
   window.addEventListener('beforeunload', (event) => {
     onUnload(event);
   });
-
-  const storage = $q.localStorage.getAll();
-
-  modeChangeTime.value =
-    DateTime.fromISO(storage.modeChangeTime) ?? currentTime;
-
-  if (isRealNumber(storage.oldStoredRestSeconds)) {
-    oldStoredRestSeconds.value = storage.oldStoredRestSeconds;
-  }
-  if (isRealNumber(storage.oldTotalWorkSeconds)) {
-    oldTotalWorkSeconds.value = storage.oldTotalWorkSeconds;
-  }
-
-  timerMode.value =
-    ACTIONS.find((mode) => mode === storage.timerMode) ?? timerMode.value;
-
-  initialized.value = true;
 });
 
 function setTimerMode(newMode: string) {
