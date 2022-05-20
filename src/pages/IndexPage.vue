@@ -32,12 +32,21 @@
     <total-work-bar :total-work-seconds="totalWorkSeconds"></total-work-bar>
   </div>
 
+  <div>
+    <q-input
+      v-model="minutesSinceModeChange"
+      debounce="500"
+      style="max-width: 300px"
+      label="Minutes since mode change"
+    ></q-input>
+  </div>
+
   <div>currentTime {{ currentTime }}</div>
 
   <div>modeChangeTime {{ modeChangeTime }}</div>
 
   <div>currentSessionDurationSeconds {{ currentSessionDurationSeconds }}</div>
-  <div>Mode: {{ timerMode }}, {{ timeSinceModeChange }}</div>
+  <div>Mode: {{ timerMode }}, {{ minutesSinceModeChange }}</div>
   <!--  </q-page>-->
 </template>
 
@@ -73,6 +82,18 @@ const modeChangeTime = useStorage('modeChangeTime', DateTime.now(), undefined, {
     write: (v: DateTime) => v.toISO(),
   },
 });
+
+const minutesSinceModeChange = computed({
+  get() {
+    return Math.floor(
+      currentTime.value.diff(modeChangeTime.value, 'minutes').minutes
+    );
+  },
+  set(value: number) {
+    modeChangeTime.value = currentTime.value.minus({ minutes: value });
+  },
+});
+
 const oldStoredRestSeconds = useStorage('oldStoredRestSeconds', 0);
 const oldTotalWorkSeconds = useStorage('oldTotalWorkSeconds', 0);
 

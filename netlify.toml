@@ -1,5 +1,5 @@
 [build]
-publish = "dist"
+publish = "dist/spa"
 command = "yarn install && yarn quasar build"
 
 [[redirects]]
