@@ -1,32 +1,20 @@
 <template>
-  <div id="bar" class="bar q-px-md row">
-    <div id="display" class="col" style="height: 100px">
+  <div id="bar">
+    <span id="icon">
       <q-icon
-        id="bar-icon"
-        class="bar-icon"
+        id="icon-image"
         :name="icon"
         tag="span"
         size="100px"
-        style="position: absolute; left: -12px"
         :style="'color:' + iconColor"
       />
-      <span
-        id="bar-text"
-        class="text-h3 text-black"
-        style="position: absolute; padding-top: 24px"
-      >
-        {{ text }}</span
-      >
-    </div>
-    <div class="col-grow"></div>
-    <div
-      id="buttons"
-      class="col-shrink"
-      style="display: flex; flex-direction: column; justify-content: center"
-    >
-      <div class="row">
-        <slot></slot>
-      </div>
+      <span id="icon-text">
+        {{ optionalPrefix }}
+      </span>
+    </span>
+    <span id="bar-text"> {{ text }}</span>
+    <div id="buttons-row">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -34,7 +22,36 @@
 <script setup lang="ts">
 defineProps({
   icon: String,
+  optionalPrefix: { type: String, required: true },
   text: String,
   iconColor: { type: String, required: true },
 });
 </script>
+
+<style scoped>
+#bar {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  #icon {
+    display: none;
+  }
+}
+#icon-text {
+  font-size: 1em;
+  margin-left: -50%;
+  position: relative;
+}
+
+#bar-text {
+  font-size: 3em;
+}
+
+@media (max-width: 400px) {
+  #bar-text {
+    font-size: 2em;
+  }
+}
+</style>

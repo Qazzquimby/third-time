@@ -1,5 +1,10 @@
 <template>
-  <control-bar :icon="sharpPause" :text="text" icon-color="#d38123">
+  <control-bar
+    :icon="sharpPause"
+    :optional-prefix="prefix"
+    :text="text"
+    icon-color="#d38123"
+  >
     <q-btn
       class="self-center q-pa-sm q-ma-sm"
       color="black"
@@ -30,15 +35,14 @@ const props = defineProps({
   storedRestSeconds: { type: Number, required: true },
 });
 
+const prefix = 'Resting: ';
 const text = computed(() => {
-  return `Resting: ${makeTimeString(props.storedRestSeconds)}`;
+  return makeTimeString(props.storedRestSeconds);
 });
 </script>
 
 <style scoped lang="scss">
 #bar {
-  height: 100px;
-  width: 500px;
   background: linear-gradient(
       270deg,
       rgba(197, 160, 12, 0.3) 0%,

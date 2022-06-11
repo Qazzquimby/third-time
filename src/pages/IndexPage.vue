@@ -1,6 +1,6 @@
 <template>
   <!--  <q-page class="row items-center justify-evenly">-->
-  <div style="width: 500px">
+  <div>
     <div v-if="timerMode === WORKING">
       <working-control-bar
         :session-duration-seconds="currentSessionDurationSeconds"

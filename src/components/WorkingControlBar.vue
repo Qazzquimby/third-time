@@ -1,5 +1,10 @@
 <template>
-  <control-bar :icon="sharpPlayArrow" :text="text" icon-color="#23d34a">
+  <control-bar
+    :icon="sharpPlayArrow"
+    :optional-prefix="prefix"
+    :text="text"
+    icon-color="#23d34a"
+  >
     <q-btn
       class="self-center q-pa-sm q-ma-sm"
       color="black"
@@ -29,16 +34,14 @@ const props = defineProps({
     required: true,
   },
 });
-
+const prefix = 'Working: ';
 const text = computed(() => {
-  return `Working: ${makeTimeString(props.sessionDurationSeconds)}`;
+  return makeTimeString(props.sessionDurationSeconds);
 });
 </script>
 
 <style scoped lang="scss">
-.bar {
-  height: 100px;
-  width: 500px;
+#bar {
   background: linear-gradient(
       270deg,
       rgba(38, 197, 12, 0.3) 0%,
@@ -47,7 +50,7 @@ const text = computed(() => {
     #1f9e3b;
 }
 
-.bar-icon {
+#bar-icon {
   color: #23d34a;
 }
 </style>
