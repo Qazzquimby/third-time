@@ -1,5 +1,4 @@
 <template>
-  <!--  <q-page class="row items-center justify-evenly">-->
   <div>
     <div v-if="timerMode === WORKING">
       <working-control-bar
@@ -40,14 +39,6 @@
       label="Minutes since mode change"
     ></q-input>
   </div>
-
-  <div>currentTime {{ currentTime }}</div>
-
-  <div>modeChangeTime {{ modeChangeTime }}</div>
-
-  <div>currentSessionDurationSeconds {{ currentSessionDurationSeconds }}</div>
-  <div>Mode: {{ timerMode }}, {{ minutesSinceModeChange }}</div>
-  <!--  </q-page>-->
 </template>
 
 <script setup lang="ts">
