@@ -65,6 +65,7 @@ const RESTING = 'resting';
 const STOPPED = 'stopped';
 
 const timerMode = useStorage('timerMode', STOPPED);
+const previousTimerMode = useStorage('previousTimerMode', STOPPED);
 const currentTime = ref(DateTime.now());
 
 const modeChangeTime = useStorage('modeChangeTime', DateTime.now(), undefined, {
@@ -74,6 +75,9 @@ const modeChangeTime = useStorage('modeChangeTime', DateTime.now(), undefined, {
   },
 });
 
+const oldStoredRestSeconds = useStorage('oldStoredRestSeconds', 0);
+const oldTotalWorkSeconds = useStorage('oldTotalWorkSeconds', 0);
+
 const minutesSinceModeChange = computed({
   get() {
     return Math.floor(
@@ -82,11 +86,12 @@ const minutesSinceModeChange = computed({
   },
   set(value: number) {
     modeChangeTime.value = currentTime.value.minus({ minutes: value });
+
+    if (previousTimerMode.value === WORKING) {
+      oldTotalWorkSeconds.value -= 60 * value;
+    }
   },
 });
-
-const oldStoredRestSeconds = useStorage('oldStoredRestSeconds', 0);
-const oldTotalWorkSeconds = useStorage('oldTotalWorkSeconds', 0);
 
 const WORK_TO_REST_RATIO = 3;
 
@@ -158,6 +163,8 @@ function setTimerMode(newMode: string) {
   if (timerMode.value === newMode) {
     return;
   }
+
+  previousTimerMode.value = timerMode.value;
 
   oldTotalWorkSeconds.value = totalWorkSeconds.value;
   oldStoredRestSeconds.value = storedRestSeconds.value;
