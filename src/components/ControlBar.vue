@@ -1,18 +1,20 @@
 <template>
   <div id="bar">
-    <span id="icon">
-      <q-icon
-        id="icon-image"
-        :name="icon"
-        tag="span"
-        size="100px"
-        :style="'color:' + iconColor"
-      />
-      <span id="icon-text">
-        {{ optionalPrefix }}
+    <div>
+      <span id="icon">
+        <q-icon
+          id="icon-image"
+          :name="icon"
+          tag="span"
+          size="100px"
+          :style="'color:' + iconColor"
+        />
+        <span id="icon-text">
+          {{ optionalPrefix }}
+        </span>
       </span>
-    </span>
-    <span id="bar-text"> {{ text }}</span>
+      <span id="bar-text"> {{ text }}</span>
+    </div>
     <div id="buttons-row">
       <slot></slot>
     </div>
@@ -32,6 +34,7 @@ defineProps({
 #bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 @media (max-width: 400px) {
