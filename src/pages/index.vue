@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { DateTime } from 'luxon'
 import { REST_MODE, STOP_MODE } from '~/composables/constants'
 import { storage, storedRestSeconds } from '~/composables/state'
 
@@ -34,10 +33,10 @@ onBeforeMount(() => {
     flex="~ col" justify-between
   >
     <timer-header />
-    <div self-center>
-      <h2>Work Bar</h2>
-      <h3>Rest remaining</h3>
-      <h4>Day bar</h4>
+    <div w-full>
+      <work-bar />
+      <rest-bar />
+      <goal-bar />
     </div>
     <div self-center>
       Footer

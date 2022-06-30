@@ -52,7 +52,8 @@ const timeSinceModeChange = computed(() => {
     DateTime.fromJSDate(now.value).diff(lastModeChangeTime.value, ['seconds']).seconds,
   )
 })
-const currentSessionDurationSeconds = computed(() => {
+
+export const currentSessionDurationSeconds = computed(() => {
   if (storage.value.timerMode === WORK_MODE) {
     return timeSinceModeChange.value
   }
