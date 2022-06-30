@@ -1,50 +1,46 @@
 <script setup lang="ts">
-const name = $ref('')
+import { DateTime } from 'luxon'
+import { REST_MODE, STOP_MODE } from '~/composables/constants'
+import { storage, storedRestSeconds } from '~/composables/state'
 
-const router = useRouter()
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
+const audio = new Audio(
+  'https://cdn.videvo.net/videvo_files/audio/premium/audio0151/watermarked/Ringtone-Alarm-Smart-Phone-Vibe-Chime-Alarm-or-Alert_COMM-1450_preview.mp3',
+)
+watch(storedRestSeconds, (newSeconds, oldSeconds) => {
+  if (oldSeconds >= 0 && newSeconds < 0) {
+    audio.play()
+  }
+})
+
+function onUnload(event: BeforeUnloadEvent) {
+  if (storage.value.timerMode === REST_MODE) {
+    // Cancel the event as stated by the standard.
+    event.preventDefault()
+    // Chrome requires returnValue to be set.
+    event.returnValue = ''
+  }
 }
+onBeforeMount(() => {
+  window.addEventListener('beforeunload', (event) => {
+    onUnload(event)
+  })
+})
 </script>
 
 <template>
-  <div>
-    <div i-carbon-campsite text-4xl inline-block />
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Vitesse Lite
-      </a>
-    </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
-    </p>
-
-    <div py-4 />
-
-    <input
-      id="input"
-      v-model="name"
-      placeholder="What's your name?"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        Go
-      </button>
+  <div
+    p="x-4 y-4" text-white
+    h-screen
+    flex="~ col" justify-between
+  >
+    <timer-header />
+    <div self-center>
+      <h2>Work Bar</h2>
+      <h3>Rest remaining</h3>
+      <h4>Day bar</h4>
+    </div>
+    <div self-center>
+      Footer
     </div>
   </div>
 </template>

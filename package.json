@@ -10,13 +10,16 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@iconify-json/mdi": "^1.1.24",
     "@vueuse/core": "^8.7.5",
+    "luxon": "^2.4.0",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
     "@iconify-json/carbon": "^1.1.5",
+    "@types/luxon": "^2.3.2",
     "@types/node": "^18.0.0",
     "@unocss/reset": "^0.39.3",
     "@vitejs/plugin-vue": "^2.3.3",
@@ -34,6 +37,19 @@
     "vue-tsc": "^0.38.1"
   },
   "eslintConfig": {
-    "extends": "@antfu"
+    "extends": "@antfu",
+    "overrides": [
+      {
+        "files": [
+          "**/*.*"
+        ],
+        "rules": {
+          "curly": [
+            "error",
+            "all"
+          ]
+        }
+      }
+    ]
   }
 }
