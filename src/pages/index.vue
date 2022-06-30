@@ -39,7 +39,7 @@ onBeforeMount(() => {
       <goal-bar />
     </div>
     <div self-center>
-      Footer
+      <footer-controls />
     </div>
   </div>
 </template>

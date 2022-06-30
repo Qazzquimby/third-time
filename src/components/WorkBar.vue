@@ -4,7 +4,7 @@ import { currentSessionDurationSeconds } from '~/composables/state'
 
 <template>
   <div flex="~ row grow" gap-2 w-full>
-    <span flex-basis-100 text-right>{{ currentSessionDurationSeconds }}</span>
+    <span flex-basis-100 text-right font-mono>{{ formatTime(currentSessionDurationSeconds) }}</span>
     <span flex-basis-100>Worked</span>
   </div>
 </template>

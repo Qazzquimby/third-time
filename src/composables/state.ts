@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 import type { TimerMode } from './constants'
 import { REST_MODE, STOP_MODE, WORK_MODE } from './constants'
 
@@ -113,4 +113,9 @@ export function reset() {
   stop()
   storage.value.oldStoredRestSeconds = 0
   storage.value.oldTotalWorkSeconds = 0
+}
+
+export function formatTime(seconds: number): string {
+  const time = Duration.fromMillis(seconds * 1000)
+  return time.toFormat('h:mm:ss')
 }
