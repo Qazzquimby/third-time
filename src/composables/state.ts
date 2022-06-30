@@ -115,6 +115,18 @@ export function reset() {
   storage.value.oldTotalWorkSeconds = 0
 }
 
+export function isWorking() {
+  return storage.value.timerMode === WORK_MODE
+}
+
+export function isResting() {
+  return storage.value.timerMode === REST_MODE
+}
+
+export function isStopped() {
+  return storage.value.timerMode === STOP_MODE
+}
+
 export function formatTime(seconds: number): string {
   const time = Duration.fromMillis(seconds * 1000)
   return time.toFormat('h:mm:ss')
