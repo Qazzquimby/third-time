@@ -20,6 +20,9 @@ function setDailyGoalHours(event: Event) {
         :placeholder="storage.dailyGoalHours.toString()"
         type="number"
         w="1.5rem"
+        color-black
+        border-rd-2
+        text-center
         @change="setDailyGoalHours"
       >h
       goal
