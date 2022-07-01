@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { totalWorkSeconds } from '~/composables/state'
+import { storage, totalWorkSeconds } from '~/composables/state'
 
 function setDailyGoalHours(event: Event) {
   if (event.target instanceof HTMLInputElement) {
@@ -9,6 +9,12 @@ function setDailyGoalHours(event: Event) {
     }
   }
 }
+
+const inputRem = computed(() => {
+  const hours = storage.value.dailyGoalHours
+  const numDigits = hours.toString().length
+  return [`width: ${numDigits + 1}rem`]
+})
 </script>
 
 <template>
@@ -20,7 +26,7 @@ function setDailyGoalHours(event: Event) {
         <input
           :placeholder="storage.dailyGoalHours.toString()"
           type="number"
-          w="1.5rem"
+          :style="inputRem"
           color-black
           border-rd-2
           text-center
