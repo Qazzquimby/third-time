@@ -32,20 +32,20 @@ export const lastModeChangeTime = useStorage('third-time-last-mode-change-time',
   },
 })
 
-export const minutesSinceModeChange = computed({
-  get() {
-    return Math.floor(
-      DateTime.fromJSDate(now.value).diff(lastModeChangeTime.value, 'minutes').minutes,
-    )
-  },
-  set(value: number) {
-    lastModeChangeTime.value = DateTime.fromJSDate(now.value).minus({ minutes: value })
-    if (storage.value.previousTimerMode === WORK_MODE) {
-      storage.value.oldTotalWorkSeconds -= 60 * value
-    }
-  },
+export const minutesSinceModeChange = computed(() => {
+  return Math.floor(
+    DateTime.fromJSDate(now.value).diff(lastModeChangeTime.value, 'minutes').minutes,
+  )
 },
 )
+
+// Using this rather than computed setter as it prevents type check error on modifying minutesSinceModeChange in other files.
+export function setMinutesSinceModeChange(value: number) {
+  lastModeChangeTime.value = DateTime.fromJSDate(now.value).minus({ minutes: value })
+  if (storage.value.previousTimerMode === WORK_MODE) {
+    storage.value.oldTotalWorkSeconds -= 60 * value
+  }
+}
 
 const timeSinceModeChange = computed(() => {
   return Math.ceil(

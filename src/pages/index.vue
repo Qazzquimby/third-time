@@ -65,7 +65,6 @@ function getBackgroundClass() {
 .bg-rest {
   background-color: hsl(35, 100%, 50%);
 }
-
 .bg-stop {
   background-color: hsl(230, 40%, 45%);
 }
