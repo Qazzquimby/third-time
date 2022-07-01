@@ -12,8 +12,8 @@ const barClasses = computed(() => {
 <template>
   <div transition-all-1000 :class="barClasses">
     <div flex="~ row grow" gap-2 w-full>
-      <span flex-basis-100 text-right font-mono>{{ formatTime(currentSessionDurationSeconds) }}</span>
-      <span flex-basis-100>Worked</span>
+      <span text-right font-mono w-full>{{ formatTime(currentSessionDurationSeconds) }}</span>
+      <span w-full>Worked</span>
     </div>
   </div>
 </template>

@@ -5,8 +5,8 @@ import { storage, totalWorkSeconds } from '~/composables/state'
 <template>
   <div transition-all-1000>
     <div flex="~ row grow" gap-2 w-full>
-      <span flex-basis-100 text-right font-mono text-2xl self-center>{{ formatTime(totalWorkSeconds) }}</span>
-      <span flex-basis-100 text-lg>
+      <span text-right font-mono text-2xl self-center w-full>{{ formatTime(totalWorkSeconds) }}</span>
+      <span text-lg w-full>
         Worked of <br>
         <little-input
           :target="storage.dailyGoalHours" :min="0" :max="999"

@@ -11,9 +11,9 @@ const barClasses = computed(() => {
 
 <template>
   <div transition-all-1000 text-2xl :class="barClasses">
-    <div flex="~ row grow" gap-2 w-full>
-      <span flex-basis-100 text-right font-mono>{{ formatTime(storedRestSeconds) }}</span>
-      <span flex-basis-100>Rest</span>
+    <div flex="~ row grow" gap-2>
+      <span text-right font-mono w-full>{{ formatTime(storedRestSeconds) }}</span>
+      <span w-full>Rest</span>
     </div>
   </div>
 </template>
