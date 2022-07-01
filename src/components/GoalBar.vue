@@ -3,7 +3,7 @@ import { storage, totalWorkSeconds } from '~/composables/state'
 </script>
 
 <template>
-  <div>
+  <div transition-all-1000>
     <div flex="~ row grow" gap-2 w-full>
       <span flex-basis-100 text-right font-mono text-2xl self-center>{{ formatTime(totalWorkSeconds) }}</span>
       <span flex-basis-100 text-lg>

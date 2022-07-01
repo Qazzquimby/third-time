@@ -5,6 +5,7 @@ const barClasses = computed(() => {
   if (isResting()) {
     return ['h-15', 'text-4xl']
   }
+  return ['h-7']
 })
 </script>
 
