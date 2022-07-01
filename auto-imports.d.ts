@@ -48,6 +48,9 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const isResting: typeof import('./src/composables/state')['isResting']
+  const isStopped: typeof import('./src/composables/state')['isStopped']
+  const isWorking: typeof import('./src/composables/state')['isWorking']
   const lastModeChangeTime: typeof import('./src/composables/state')['lastModeChangeTime']
   const logicAnd: typeof import('@vueuse/core')['logicAnd']
   const logicNot: typeof import('@vueuse/core')['logicNot']
@@ -314,6 +317,9 @@ declare module '@vue/runtime-core' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly isResting: UnwrapRef<typeof import('./src/composables/state')['isResting']>
+    readonly isStopped: UnwrapRef<typeof import('./src/composables/state')['isStopped']>
+    readonly isWorking: UnwrapRef<typeof import('./src/composables/state')['isWorking']>
     readonly lastModeChangeTime: UnwrapRef<typeof import('./src/composables/state')['lastModeChangeTime']>
     readonly logicAnd: UnwrapRef<typeof import('@vueuse/core')['logicAnd']>
     readonly logicNot: UnwrapRef<typeof import('@vueuse/core')['logicNot']>

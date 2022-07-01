@@ -127,7 +127,18 @@ export function isStopped() {
   return storage.value.timerMode === STOP_MODE
 }
 
-export function formatTime(seconds: number): string {
-  const time = Duration.fromMillis(seconds * 1000)
-  return time.toFormat('h:mm:ss')
+export function formatTime(inputSeconds: number): string {
+  const duration = Duration.fromMillis(inputSeconds * 1000)
+  let { hours = 0, minutes = 0, seconds = 0 } = duration.shiftTo('hours', 'minutes', 'seconds').toObject()
+
+  hours = Math.abs(hours)
+  minutes = Math.abs(minutes)
+  seconds = Math.abs(seconds)
+
+  const minusSign = duration.milliseconds < 0 ? '-' : ''
+  const hoursString = hours ? `${hours}:` : ''
+  const minutesString = `${minutes && minutes < 10 ? '0' : ''}${minutes}:`
+  const secondsString = `${seconds && seconds < 10 ? '0' : ''}${seconds.toFixed(0)}`
+
+  return `${minusSign}${hoursString}${minutesString}${secondsString}`
 }
