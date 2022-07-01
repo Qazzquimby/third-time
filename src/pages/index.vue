@@ -46,11 +46,7 @@ function getBackgroundClass() {
     :class="[getBackgroundClass()]"
   >
     <timer-header />
-    <div w-full>
-      <work-bar />
-      <rest-bar />
-      <goal-bar />
-    </div>
+    <bar-box />
     <div self-center>
       <footer-controls />
     </div>
@@ -60,7 +56,6 @@ function getBackgroundClass() {
 <style scoped>
 .bg-work {
   background-color: hsl(130, 60%, 40%);
-  transition: 1.0;
 }
 .bg-rest {
   background-color: hsl(35, 100%, 50%);
