@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isResting, isStopped, isWorking } from '~/composables/state'
+import { getBackgroundClass, isResting, isStopped, isWorking } from '~/composables/state'
 
 const audio = new Audio(
   'https://cdn.videvo.net/videvo_files/audio/premium/audio0151/watermarked/Ringtone-Alarm-Smart-Phone-Vibe-Chime-Alarm-or-Alert_COMM-1450_preview.mp3',
@@ -23,18 +23,6 @@ onBeforeMount(() => {
     onUnload(event)
   })
 })
-
-function getBackgroundClass() {
-  if (isWorking()) {
-    return 'bg-work'
-  }
-  else if (isResting()) {
-    return 'bg-rest'
-  }
-  else if (isStopped()) {
-    return 'bg-stop'
-  }
-}
 </script>
 
 <template>
@@ -54,13 +42,5 @@ function getBackgroundClass() {
 </template>
 
 <style scoped>
-.bg-work {
-  background-color: hsl(130, 60%, 40%);
-}
-.bg-rest {
-  background-color: hsl(35, 100%, 50%);
-}
-.bg-stop {
-  background-color: hsl(230, 40%, 45%);
-}
+
 </style>

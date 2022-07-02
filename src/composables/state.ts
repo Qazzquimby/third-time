@@ -142,3 +142,15 @@ export function formatTime(inputSeconds: number): string {
 
   return `${minusSign}${hoursString}${minutesString}${secondsString}`
 }
+
+export function getBackgroundClass() {
+  if (isWorking()) {
+    return 'bg-work'
+  }
+  else if (isResting()) {
+    return 'bg-rest'
+  }
+  else if (isStopped()) {
+    return 'bg-stop'
+  }
+}
