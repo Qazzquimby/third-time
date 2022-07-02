@@ -32,6 +32,7 @@ onBeforeMount(() => {
     flex="~ col" justify-between
     transition-1000
     :class="[getBackgroundClass()]"
+    overflow-clip
   >
     <timer-header />
     <bar-box />

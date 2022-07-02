@@ -3,14 +3,14 @@ import { currentSessionDurationSeconds, isWorking } from '~/composables/state'
 
 const barClasses = computed(() => {
   if (isWorking()) {
-    return ['h-15', 'text-4xl']
+    return ['text-4xl', 'h-10']// ['top-0', 'text-4xl']
   }
-  return 'h-0 op-0'
+  return ['mb--10', 'mb-0', 'h-0'] // 'top-10'
 })
 </script>
 
 <template>
-  <div transition-all-1000 :class="barClasses">
+  <div transition-all-1000 static :class="barClasses">
     <div flex="~ row grow" gap-2 w-full>
       <span text-right font-mono w-full>{{ formatTime(currentSessionDurationSeconds) }}</span>
       <span w-full>Worked</span>
