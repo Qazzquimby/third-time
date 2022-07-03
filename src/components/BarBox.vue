@@ -1,26 +1,20 @@
 <script setup lang="ts">
-import { getBackgroundClass } from '~/composables/state'
+import { backgroundClass } from '~/composables/state'
 
 const barDividerClasses = computed(() => {
-  if (isResting()) {
+  if (isResting.value) {
     return ['top--15 h-30']
   }
   return ['top-0 h-5px']
 })
-// const barDividerStyles = computed(() => {
-//   if (isResting()) {
-//     return ['grid-rows: 1/2']
-//   }
-//   return ['grid-row: 2']
-// })
 </script>
 
 <template>
   <div w-full>
     <work-bar z-0 />
-    <div transition-all-1000 :class="[getBackgroundClass()]" relative z-2>
+    <div transition-all-1000 :class="[backgroundClass]" relative z-2>
       <div
-        max-w-100 mx-auto py-3
+        max-w-100 mx-auto
         bg-gradient-to-b from-white:25 to bg-white:10
         border="rd-10 solid 1px" border-white:30
         grid style="grid-template-rows: 1fr 5px 1fr" items-center
@@ -29,11 +23,11 @@ const barDividerClasses = computed(() => {
         <div
           transition-all-1000
           relative left--2px
-          :class="[getBackgroundClass(), barDividerClasses]"
+          :class="[backgroundClass, barDividerClasses]"
           style="width: 110%"
           z-2
         />
-        <goal-bar />
+        <goal-bar py-2 />
       </div>
     </div>
   </div>

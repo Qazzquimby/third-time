@@ -2,7 +2,7 @@
 import { minutesSinceModeChange, reset, setMinutesSinceModeChange } from '~/composables/state'
 
 const resetButtonClasses = computed(() => {
-  if (isStopped()) {
+  if (isStopped.value) {
     return ['top-0']
   }
   return ['top-30 op-0']
@@ -38,19 +38,20 @@ const resetButtonClasses = computed(() => {
     relative top-15
   >
     <li>
-      <button @click="start">
-        PLAY
-      </button>
+      <timer-button label="start" :is-pressed="isWorking" @click="start">
+        <div i-mdi-play />
+      </timer-button>
     </li>
     <li>
-      <button @click="pause">
-        PAUSE
-      </button>
+      <timer-button label="pause" :is-pressed="isResting" @click="pause">
+        <div i-mdi-pause />
+      </timer-button>
     </li>
     <li>
-      <button @click="stop">
-        STOP
-      </button>
+      <timer-button label="stop" :is-pressed="isStopped" @click="stop">
+        <div i-mdi-stop />
+      </timer-button>
     </li>
   </ul>
 </template>
+

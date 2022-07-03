@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getBackgroundClass, isResting, isStopped, isWorking } from '~/composables/state'
+import { backgroundClass } from '~/composables/state'
 
 const audio = new Audio(
   'https://cdn.videvo.net/videvo_files/audio/premium/audio0151/watermarked/Ringtone-Alarm-Smart-Phone-Vibe-Chime-Alarm-or-Alert_COMM-1450_preview.mp3',
@@ -31,7 +31,7 @@ onBeforeMount(() => {
     h-screen
     flex="~ col" justify-between
     transition-1000
-    :class="[getBackgroundClass()]"
+    :class="[backgroundClass]"
     overflow-clip
   >
     <timer-header />

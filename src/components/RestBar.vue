@@ -2,7 +2,7 @@
 import { isResting, storedRestSeconds } from '~/composables/state'
 
 const barClasses = computed(() => {
-  if (isResting()) {
+  if (isResting.value) {
     return ['h-15', 'text-4xl']
   }
   return ['h-7']

@@ -2,7 +2,7 @@
 import { currentSessionDurationSeconds, isWorking } from '~/composables/state'
 
 const barClasses = computed(() => {
-  if (isWorking()) {
+  if (isWorking.value) {
     return ['text-4xl', 'h-10']// ['top-0', 'text-4xl']
   }
   return ['mb--10', 'mb-0', 'h-0'] // 'top-10'

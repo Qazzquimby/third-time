@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     RestBar: typeof import('./src/components/RestBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TimerButton: typeof import('./src/components/TimerButton.vue')['default']
     TimerHeader: typeof import('./src/components/TimerHeader.vue')['default']
     WorkBar: typeof import('./src/components/WorkBar.vue')['default']
   }

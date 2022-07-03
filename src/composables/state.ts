@@ -115,17 +115,17 @@ export function reset() {
   storage.value.oldTotalWorkSeconds = 0
 }
 
-export function isWorking() {
+export const isWorking = computed(() => {
   return storage.value.timerMode === WORK_MODE
-}
+})
 
-export function isResting() {
+export const isResting = computed(() => {
   return storage.value.timerMode === REST_MODE
-}
+})
 
-export function isStopped() {
+export const isStopped = computed(() => {
   return storage.value.timerMode === STOP_MODE
-}
+})
 
 export function formatTime(inputSeconds: number): string {
   const duration = Duration.fromMillis(inputSeconds * 1000)
@@ -143,14 +143,14 @@ export function formatTime(inputSeconds: number): string {
   return `${minusSign}${hoursString}${minutesString}${secondsString}`
 }
 
-export function getBackgroundClass() {
-  if (isWorking()) {
+export const backgroundClass = computed(() => {
+  if (isWorking.value) {
     return 'bg-work'
   }
-  else if (isResting()) {
+  else if (isResting.value) {
     return 'bg-rest'
   }
-  else if (isStopped()) {
+  else if (isStopped.value) {
     return 'bg-stop'
   }
-}
+})
