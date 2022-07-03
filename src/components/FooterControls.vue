@@ -12,7 +12,7 @@ const resetButtonClasses = computed(() => {
 <template>
   <div transition-all-1000 relative :class="resetButtonClasses">
     <div flex="~ row" justify-center>
-      <div btn border-rd-100  @click="reset()">
+      <div btn border-rd-100 @click="reset()">
         <div i-mdi-refresh text-6xl />
       </div>
     </div>
@@ -30,19 +30,25 @@ const resetButtonClasses = computed(() => {
     </p>
   </div>
 
-  <ul flex="~ row" justify-between gap-3 mx-3>
+  <ul
+    flex="~ row" justify-between gap-3 mx-3
+    bg-gradient-to-b from-white:25 to bg-white:10
+    border="rd-10 solid 1px" border-white:30
+    h-30
+    relative top-15
+  >
     <li>
-      <button btn @click="start">
+      <button @click="start">
         PLAY
       </button>
     </li>
     <li>
-      <button btn @click="pause">
+      <button @click="pause">
         PAUSE
       </button>
     </li>
     <li>
-      <button btn @click="stop">
+      <button @click="stop">
         STOP
       </button>
     </li>
