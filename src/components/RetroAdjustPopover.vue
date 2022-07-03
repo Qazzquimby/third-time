@@ -13,7 +13,7 @@ const classes = computed(() => {
   if (props.isVisible) {
     return ['top-12']
   }
-  return ['top-40']
+  return ['top-50']
 })
 </script>
 
