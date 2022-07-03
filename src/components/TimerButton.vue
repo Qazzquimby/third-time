@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { backgroundClass } from '~/composables/state'
+
 const props = defineProps({
   label: {
     type: String,
@@ -12,9 +14,9 @@ const props = defineProps({
 
 const classes = computed(() => {
   if (props.isPressed) {
-    return ['bg-gradient-to-b from-white:25 to bg-white:10']
+    return [backgroundClass.value]
   }
-  return ['bg-white:10']
+  return ['']
 })
 </script>
 
