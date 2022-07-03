@@ -7,7 +7,7 @@ const resetButtonClasses = computed(() => {
   if (isStopped.value) {
     return ['top-0']
   }
-  return ['top-30 op-0']
+  return ['top-90']
 })
 </script>
 
@@ -15,7 +15,12 @@ const resetButtonClasses = computed(() => {
   <div w-full>
     <div transition-all-1000 relative :class="resetButtonClasses">
       <div flex="~ row" justify-center>
-        <div btn border-rd-100 @click="reset()">
+        <div
+          h-18 w-18 border-rd-100
+          bg-gradient-to-b from-white:25 to bg-white:10
+          border="rd-10 solid 1px" border-white:30
+          @click="reset()"
+        >
           <div i-mdi-refresh text-6xl />
         </div>
       </div>
