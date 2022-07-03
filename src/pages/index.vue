@@ -48,9 +48,8 @@ onBeforeMount(() => {
   >
     <timer-header />
     <bar-box />
-    <div self-center>
-      <footer-controls />
-    </div>
+
+    <footer-controls self-center />
   </div>
   <p text-center h-100>
     More content here later!

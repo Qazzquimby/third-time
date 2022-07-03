@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     GoalBar: typeof import('./src/components/GoalBar.vue')['default']
     LittleInput: typeof import('./src/components/LittleInput.vue')['default']
     RestBar: typeof import('./src/components/RestBar.vue')['default']
+    RetroAdjustPopover: typeof import('./src/components/RetroAdjustPopover.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TimerButton: typeof import('./src/components/TimerButton.vue')['default']
