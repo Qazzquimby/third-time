@@ -27,7 +27,7 @@ onBeforeMount(() => {
 
 <template>
   <div
-    p="x-4 y-4" text-white
+    p="x-4 t-4" text-white
     h-screen
     flex="~ col" justify-between
     transition-1000
@@ -40,6 +40,9 @@ onBeforeMount(() => {
       <footer-controls />
     </div>
   </div>
+  <p text-center h-100>
+    More content here later!
+  </p>
 </template>
 
 <style scoped>
