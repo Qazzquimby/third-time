@@ -10,7 +10,7 @@ watch(storedRestSeconds, (newSeconds, oldSeconds) => {
   }
 })
 
-watch([storage.value.timerMode, storedRestSeconds, currentSessionDurationSeconds], () => {
+watch([storedRestSeconds, currentSessionDurationSeconds], () => {
   if (isWorking.value) {
     document.title = `Working: ${formatTime(currentSessionDurationSeconds.value)}`
   }
