@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { backgroundClass, currentSessionDurationSeconds, isWorking } from '~/composables/state'
 
-const barClasses = computed(() => {
+const hideClasses = computed(() => {
   if (isWorking.value) {
-    return ['scale-100']// ['h-14']
+    return []
   }
-  return ['scale-y-0']// ['mb--10', 'h-0']
-})
-
-const notchClasses = computed(() => {
-  if (isWorking.value) {
-    return [' scale-100']
-  }
-  return [' scale-y-0']
+  return ['scale-y-0']
 })
 </script>
 
 <template>
-  <div transition-all-1000 :class="barClasses" text-4xl>
+  <div transition-all-1000 :class="hideClasses" text-4xl>
     <div flex="~ row grow" gap-2 w-full>
       <span text-right font-mono w-full>{{ formatTime(currentSessionDurationSeconds) }}</span>
       <span w-full>Worked</span>
@@ -25,7 +18,7 @@ const notchClasses = computed(() => {
   </div>
 
   <div
-    :class="[notchClasses]"
+    :class="hideClasses"
     transition-all-1000
     relative z-3
     text-sm h-0 mb-6
