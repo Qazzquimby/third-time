@@ -4,7 +4,7 @@ import { reset } from '~/composables/state'
 const retroAdjustPressToggled = ref(false)
 
 const resetButtonClasses = computed(() => {
-  if (isStopped.value) {
+  if (isStopped.value && totalWorkSeconds.value > 0) {
     return ['top-0']
   }
   return ['top-90']
