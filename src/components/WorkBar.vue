@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { backgroundClass, currentSessionDurationSeconds, isWorking } from '~/composables/state'
+import { backgroundClass, currentSessionDurationSeconds, formatMinutes, isWorking, newEarnedRest } from '~/composables/state'
 
 const hideClasses = computed(() => {
   if (isWorking.value) {
@@ -25,7 +25,7 @@ const hideClasses = computed(() => {
     h-0 mb-8
   >
     <p w-fit mx-auto mb--2>
-      ÷ 3 =
+      / 3 =
     </p>
     <p
       :class="[backgroundClass]"
@@ -33,7 +33,7 @@ const hideClasses = computed(() => {
       border-rd-100
       w-fit mx-auto p-1
     >
-      +29m Rest
+      +{{ formatMinutes(newEarnedRest) }} Rest
     </p>
   </div>
 </template>

@@ -61,7 +61,7 @@ export const currentSessionDurationSeconds = computed(() => {
     return 0
   }
 })
-const newEarnedRest = computed(() => {
+export const newEarnedRest = computed(() => {
   if (storage.value.timerMode === WORK_MODE) {
     return currentSessionDurationSeconds.value / storage.value.workRestRatio
   }
@@ -141,6 +141,12 @@ export function formatTime(inputSeconds: number): string {
   const secondsString = `${seconds && seconds < 10 ? '0' : ''}${seconds.toFixed(0)}`
 
   return `${minusSign}${hoursString}${minutesString}${secondsString}`
+}
+
+export function formatMinutes(inputSeconds: number): string {
+  const duration = Duration.fromMillis(inputSeconds * 1000)
+  const { minutes = 0 } = duration.shiftTo('minutes', 'seconds').toObject()
+  return `${minutes}m`
 }
 
 export const backgroundClass = computed(() => {
