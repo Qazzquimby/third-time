@@ -25,7 +25,12 @@ const hideClasses = computed(() => {
     h-0 mb-8
   >
     <p w-fit mx-auto mb--2>
-      / 3 =
+      /
+      <little-input
+        :target="storage.workRestRatio" :min="1" :max="9"
+        @change="(val: number) => { storage.workRestRatio = val }"
+      />
+      =
     </p>
     <p
       :class="[backgroundClass]"

@@ -40,11 +40,14 @@ const inputRem = computed(() => {
 <template>
   <input
     :placeholder="target.toString()"
+    :value="target"
     type="number"
     :style="inputRem"
     color-black
     border-rd-2
     text-center
+    :min="props.min"
+    :max="props.max"
     @change="setValue"
   >
 </template>
