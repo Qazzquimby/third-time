@@ -15,14 +15,15 @@ const resetButtonClasses = computed(() => {
   <div w-full>
     <div transition-all-1000 relative :class="resetButtonClasses">
       <div flex="~ row" justify-center>
-        <div
+        <button
           h-18 w-18 border-rd-100
           bg-gradient-to-b from-white:25 to bg-white:10
           border="rd-10 solid 1px" border-white:30
+          title="Reset timers."
           @click="reset()"
         >
           <div i-mdi-refresh text-6xl />
-        </div>
+        </button>
       </div>
     </div>
     <retro-adjust-popover
