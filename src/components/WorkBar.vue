@@ -28,9 +28,9 @@ const notchClasses = computed(() => {
     :class="[notchClasses]"
     transition-all-1000
     relative z-3
-    text-sm h-0 mb-8 mt--3
+    text-sm h-0 mb-6
   >
-    <p w-fit mx-auto>
+    <p w-fit mx-auto mb--2>
       ÷ 3 =
     </p>
     <p
