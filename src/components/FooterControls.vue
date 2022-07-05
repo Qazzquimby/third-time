@@ -38,17 +38,17 @@ const resetButtonClasses = computed(() => {
       min-w-13rem max-w-18rem mx-auto
     >
       <li>
-        <timer-button label="start" :is-pressed="isWorking" @click="if (isWorking){ retroAdjustPressToggled = true }; start()">
+        <timer-button label="Start working." :is-pressed="isWorking" @click="if (isWorking){ retroAdjustPressToggled = true }; start()">
           <div i-mdi-play />
         </timer-button>
       </li>
       <li>
-        <timer-button label="pause" :is-pressed="isResting" @click="if (isResting){ retroAdjustPressToggled = true }; pause()">
+        <timer-button label="Take a short, timed rest." :is-pressed="isResting" @click="if (isResting){ retroAdjustPressToggled = true }; pause()">
           <div i-mdi-pause />
         </timer-button>
       </li>
       <li>
-        <timer-button label="stop" :is-pressed="isStopped" @click="if (isStopped){ retroAdjustPressToggled = true }; stop()">
+        <timer-button label="Stop working, no timer limit." :is-pressed="isStopped" @click="if (isStopped){ retroAdjustPressToggled = true }; stop()">
           <div i-mdi-stop />
         </timer-button>
       </li>

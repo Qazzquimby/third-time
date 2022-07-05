@@ -22,7 +22,7 @@ const classes = computed(() => {
 
 <template>
   <div transition-all-1000 :aria="props.label">
-    <button h-15 w-15 border-rd-100 color-white :class="classes">
+    <button h-15 w-15 border-rd-100 color-white :class="classes" :title="label">
       <div text-5xl>
         <slot />
       </div>
