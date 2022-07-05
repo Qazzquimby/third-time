@@ -13,6 +13,7 @@
     "@iconify-json/mdi": "^1.1.24",
     "@vueuse/core": "^8.7.5",
     "luxon": "^2.4.0",
+    "shepherd.js": "^10.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16"
   },

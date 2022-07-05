@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Shepherd from 'shepherd.js'
 import { backgroundClass, storage } from '~/composables/state'
 
 const audio = new Audio(
@@ -34,6 +35,29 @@ onBeforeMount(() => {
   window.addEventListener('beforeunload', (event) => {
     onUnload(event)
   })
+})
+
+const tour = new Shepherd.Tour({
+  useModalOverlay: true,
+  defaultStepOptions: {
+    classes: 'shadow-md bg-slate-800 z-10 op-100 p-6 border-rd-100 text-xl',
+    scrollTo: true,
+  },
+})
+tour.addStep({
+  id: 'example-step',
+  text: 'It works!.',
+  buttons: [
+    {
+      text: 'Next',
+      action: tour.next,
+      classes: 'shepherd-btn',
+    },
+  ],
+})
+
+onMounted(() => {
+  tour.start()
 })
 </script>
 

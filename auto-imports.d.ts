@@ -14,6 +14,7 @@ declare global {
   const WORK_MODE: typeof import('./src/composables/constants')['WORK_MODE']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const backgroundClass: typeof import('./src/composables/state')['backgroundClass']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -37,6 +38,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const formatMinutes: typeof import('./src/composables/state')['formatMinutes']
   const formatTime: typeof import('./src/composables/state')['formatTime']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -58,6 +60,7 @@ declare global {
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const minutesSinceModeChange: typeof import('./src/composables/state')['minutesSinceModeChange']
+  const newEarnedRest: typeof import('./src/composables/state')['newEarnedRest']
   const nextTick: typeof import('vue')['nextTick']
   const now: typeof import('./src/composables/state')['now']
   const onActivated: typeof import('vue')['onActivated']
@@ -95,6 +98,7 @@ declare global {
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
   const reset: typeof import('./src/composables/state')['reset']
   const resolveComponent: typeof import('vue')['resolveComponent']
+  const setMinutesSinceModeChange: typeof import('./src/composables/state')['setMinutesSinceModeChange']
   const setTimerMode: typeof import('./src/composables/state')['setTimerMode']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
@@ -134,6 +138,7 @@ declare global {
   const useBrowserLocation: typeof import('@vueuse/core')['useBrowserLocation']
   const useCached: typeof import('@vueuse/core')['useCached']
   const useClamp: typeof import('@vueuse/core')['useClamp']
+  const useClickAway: typeof import('./src/composables/useClickAway.js')['default']
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
@@ -162,7 +167,7 @@ declare global {
   const useElementSize: typeof import('@vueuse/core')['useElementSize']
   const useElementVisibility: typeof import('@vueuse/core')['useElementVisibility']
   const useEventBus: typeof import('@vueuse/core')['useEventBus']
-  const useEventListener: typeof import('@vueuse/core')['useEventListener']
+  const useEventListener: typeof import('./src/composables/useEventListener.js')['default']
   const useEventSource: typeof import('@vueuse/core')['useEventSource']
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
@@ -283,6 +288,7 @@ declare module '@vue/runtime-core' {
     readonly WORK_MODE: UnwrapRef<typeof import('./src/composables/constants')['WORK_MODE']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly backgroundClass: UnwrapRef<typeof import('./src/composables/state')['backgroundClass']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -306,6 +312,7 @@ declare module '@vue/runtime-core' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly formatMinutes: UnwrapRef<typeof import('./src/composables/state')['formatMinutes']>
     readonly formatTime: UnwrapRef<typeof import('./src/composables/state')['formatTime']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
@@ -327,6 +334,7 @@ declare module '@vue/runtime-core' {
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly minutesSinceModeChange: UnwrapRef<typeof import('./src/composables/state')['minutesSinceModeChange']>
+    readonly newEarnedRest: UnwrapRef<typeof import('./src/composables/state')['newEarnedRest']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly now: UnwrapRef<typeof import('./src/composables/state')['now']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
@@ -364,6 +372,7 @@ declare module '@vue/runtime-core' {
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
     readonly reset: UnwrapRef<typeof import('./src/composables/state')['reset']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
+    readonly setMinutesSinceModeChange: UnwrapRef<typeof import('./src/composables/state')['setMinutesSinceModeChange']>
     readonly setTimerMode: UnwrapRef<typeof import('./src/composables/state')['setTimerMode']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
@@ -403,6 +412,7 @@ declare module '@vue/runtime-core' {
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useClamp: UnwrapRef<typeof import('@vueuse/core')['useClamp']>
+    readonly useClickAway: UnwrapRef<typeof import('./src/composables/useClickAway.js')['default']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
@@ -431,7 +441,7 @@ declare module '@vue/runtime-core' {
     readonly useElementSize: UnwrapRef<typeof import('@vueuse/core')['useElementSize']>
     readonly useElementVisibility: UnwrapRef<typeof import('@vueuse/core')['useElementVisibility']>
     readonly useEventBus: UnwrapRef<typeof import('@vueuse/core')['useEventBus']>
-    readonly useEventListener: UnwrapRef<typeof import('@vueuse/core')['useEventListener']>
+    readonly useEventListener: UnwrapRef<typeof import('./src/composables/useEventListener.js')['default']>
     readonly useEventSource: UnwrapRef<typeof import('@vueuse/core')['useEventSource']>
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
