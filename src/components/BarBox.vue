@@ -11,7 +11,7 @@ const barDividerClasses = computed(() => {
 
 <template>
   <div w-full>
-    <work-bar z-0 />
+    <work-bar />
     <div transition-all-1000 :class="[backgroundClass]" relative z-2>
       <div
         max-w-100 mx-auto
