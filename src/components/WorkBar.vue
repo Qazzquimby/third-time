@@ -21,7 +21,8 @@ const hideClasses = computed(() => {
     :class="hideClasses"
     transition-all-1000
     relative z-3
-    text-sm h-0 mb-6
+    text-base color-white:70
+    h-0 mb-8
   >
     <p w-fit mx-auto mb--2>
       ÷ 3 =
