@@ -16,8 +16,7 @@ const barDividerClasses = computed(() => {
       <div
         max-w-100 mx-auto
         my-4
-        bg-gradient-to-b from-white:25 to bg-white:10
-        border="rd-10 solid 1px" border-white:30
+        glass
         grid style="grid-template-rows: 1fr 5px 1fr" items-center
       >
         <rest-bar z-3 />

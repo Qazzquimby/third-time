@@ -11,7 +11,7 @@ const hideClasses = computed(() => {
 
 <template>
   <div transition-all-1000 :class="hideClasses" text-4xl>
-    <div flex="~ row grow" gap-2 w-full>
+    <div id="work-timer" flex="~ row grow" gap-2 w-full>
       <span text-right font-mono w-full>{{ formatTime(currentSessionDurationSeconds) }}</span>
       <span w-full>Worked</span>
     </div>
@@ -24,21 +24,23 @@ const hideClasses = computed(() => {
     text-base color-white:70
     h-0 mb-8
   >
-    <p w-fit mx-auto mb--2>
-      /
-      <little-input
-        :target="storage.workRestRatio" :min="1" :max="9"
-        @change="(val: number) => { storage.workRestRatio = val }"
-      />
-      =
-    </p>
-    <p
-      :class="[backgroundClass]"
-      transition-all-1000
-      border-rd-100
-      w-fit mx-auto p-1
-    >
-      +{{ formatMinutes(newEarnedRest) }} Rest
-    </p>
+    <div id="work-ratio">
+      <p w-fit mx-auto mb--2>
+        /
+        <little-input
+          :target="storage.workRestRatio" :min="1" :max="9"
+          @change="(val: number) => { storage.workRestRatio = val }"
+        />
+        =
+      </p>
+      <p
+        :class="[backgroundClass]"
+        transition-all-1000
+        border-rd-100
+        w-fit mx-auto p-1
+      >
+        +{{ formatMinutes(newEarnedRest) }} Rest
+      </p>
+    </div>
   </div>
 </template>

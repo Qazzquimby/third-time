@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const emit = defineEmits(['runTour'])
+</script>
+
 <template>
   <div
     flex="~"
@@ -8,6 +12,14 @@
       inline-block
     />
     <h1>ThirdTime</h1>
+    <button
+      ml-auto
+      glass text-center font-bold
+      border-rd-100 h-10 w-10
+      @click="emit('runTour')"
+    >
+      ?
+    </button>
   </div>
 </template>
 

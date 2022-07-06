@@ -137,8 +137,8 @@ export function formatTime(inputSeconds: number): string {
 
   const minusSign = duration.milliseconds < 0 ? '-' : ''
   const hoursString = hours ? `${hours}:` : ''
-  const minutesString = `${minutes && minutes < 10 ? '0' : ''}${minutes}:`
-  const secondsString = `${seconds && seconds < 10 ? '0' : ''}${seconds.toFixed(0)}`
+  const minutesString = `${minutes !== undefined && minutes < 10 ? '0' : ''}${minutes}:`
+  const secondsString = `${seconds !== undefined && seconds < 10 ? '0' : ''}${seconds.toFixed(0)}`
 
   return `${minusSign}${hoursString}${minutesString}${secondsString}`
 }
