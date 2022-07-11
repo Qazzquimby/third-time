@@ -133,22 +133,24 @@ function runTour() {
 </script>
 
 <template>
-  <div
-    p="x-4 t-4" text-white
-    h-screen
-    flex="~ col" justify-between
-    transition-1000
-    :class="[backgroundClass]"
-    overflow-clip
-  >
-    <timer-header @run-tour="runTour" />
-    <bar-box />
-
-    <footer-controls self-center />
+  <div h-screen overflow-y-scroll style="scroll-snap-type: y mandatory">
+    <div
+      p="x-4 t-4" text-white
+      h-screen
+      flex="~ col" justify-between
+      transition-1000
+      :class="[backgroundClass]"
+      overflow-clip
+      style="scroll-snap-align: start"
+    >
+      <timer-header @run-tour="runTour" />
+      <bar-box />
+      <footer-controls self-center />
+    </div>
+    <div h-screen style="scroll-snap-align: start">
+      <about-page />
+    </div>
   </div>
-  <p text-center h-100>
-    More content here later!
-  </p>
 </template>
 
 <style scoped>
