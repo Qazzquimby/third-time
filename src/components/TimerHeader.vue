@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const emit = defineEmits(['runTour'])
+import { runTour } from '~/composables/tour'
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const emit = defineEmits(['runTour'])
       ml-auto
       glass text-center font-bold
       border-rd-100 h-10 w-10
-      @click="emit('runTour')"
+      @click="runTour"
     >
       ?
     </button>

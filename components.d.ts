@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AboutPage: typeof import('./src/components/AboutPage.vue')['default']
     BarBox: typeof import('./src/components/BarBox.vue')['default']
     FooterControls: typeof import('./src/components/FooterControls.vue')['default']
     GoalBar: typeof import('./src/components/GoalBar.vue')['default']
@@ -13,6 +14,7 @@ declare module '@vue/runtime-core' {
     RetroAdjustPopover: typeof import('./src/components/RetroAdjustPopover.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheTimer: typeof import('./src/components/TheTimer.vue')['default']
     TimerButton: typeof import('./src/components/TimerButton.vue')['default']
     TimerHeader: typeof import('./src/components/TimerHeader.vue')['default']
     WorkBar: typeof import('./src/components/WorkBar.vue')['default']
