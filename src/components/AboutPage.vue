@@ -50,18 +50,67 @@
           then I'd go for <a pomodoro-link href="https://pomofocus.io">Pomodoro</a>.
         </p>
         <p>If you Pomodoro's bugged you, or want to optimize your break-taking, this is for you ❤️</p>
-
+        <p text-sm op-70>
+          ThirdTime's default rest ratio of 1/3 is actually the same as Pomodoro rest, when you take into account their periodic long-breaks.
+        </p>
         <h3 text-xl mt-4>
-          ⚙️ Effective Workflow
+          ▶️💻 Working
         </h3>
         <div
           w-48 h2 border-blue-300 border-4 content-empty
         />
         <p>
-          https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work
-          how to take good breaks
-          when to break. why breaks matter https://medium.com/@lightsandcandy/flowtime-troubleshooting-if-you-find-yourself-not-taking-breaks-d33da913c7dd#.scsbl6bid
-          When to take long breaks
+          Work time is for single task, focused effort -
+          the kind of productivity that's often only attainable with effective resting.
+          If you notice yourself distractedly half-working, you should stop tracking it as work time and take a rest.
+        </p>
+        <p>
+          Unitasking - working on one thing at a time, is very important for efficiency.
+          Consider choosing a concrete task for yourself each time you press ▶️
+        </p>
+        <h3 text-xl mt-4>
+          ⏸️🛋️ Resting
+        </h3>
+        <div
+          w-48 h2 border-blue-300 border-4 content-empty
+        />
+        <p>
+          The key idea in ThirdTime is to take your breaks when you need them.
+          That can be short, like if you're brain-tired doing something unpleasant, or can be long if you get into a good flow.
+        </p>
+        <p>
+          When you take a break, you don't need to take up all the rest time time.
+          Get refreshed and jump back into things - your unspent rest will be stored for later.
+        </p>
+        <p>
+          But don't go over your earned rest time.
+          Stored rest time can go negative, but you shouldn't be letting it run negative on purpose.
+          If you regularly find you need more rest time than you have, consider eliminating distractions, or changing the rest ratio to 1/2 for a while.
+        </p>
+        <p>
+          Many people work for too long without rest, ending up tired, cranky, and ineffective.
+          If that sounds like you, watch for the symptoms and force your brain to cool off when it's starting to suffer.
+          You'll get more done!
+          It may help to set small concrete tasks and break when you complete one.
+          If it feels impossible, maybe switch to <a pomodoro-link href="https://pomofocus.io">Pomodoro</a> which tells you exactly when to take your breaks.
+        </p>
+        <p>What you do during your break matters. Relax, don't keep mentally engaging with the work, or you won't come back refreshed.</p>
+        <h3 text-xl mt-4>
+          ⏹️🛏️ Stopping
+        </h3>
+        <div
+          w-48 h2 border-blue-300 border-4 content-empty
+        />
+        <p>Stopping is for rest that doesn't need tracking. The end of the work day, a sit-down meal, an emergency away from your desk - any time you don't care if an alarm says you should get back to work.</p>
+        <p>Stopping still takes rest time, but it'll never go below 0.</p>
+
+        <h4 text-lg mt-4 mb--2>
+          Acknowledgements
+        </h4>
+        <p text-sm>
+          Credit is owed to
+          <a pomodoro-link href="https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work">Bfinn</a> for creating the ThirdTime system,<br>
+          and <a pomodoro-link href="https://medium.com/@lightsandcandy/the-flowtime-technique-7685101bd191#.ag0za2e33">Urgent Pigeon</a> for developing the related system Flowtime.
         </p>
       </div>
     </div>
@@ -70,7 +119,7 @@
 
 <style scoped>
 p {
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
 }
 li {
   display: list-item;
