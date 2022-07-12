@@ -18,7 +18,10 @@ const bellClasses = computed(() => {
 
 <template>
   <div transition-all-1000 text-2xl :class="barClasses">
-    <div transition-all-1000 i-mdi-bell class="left-47%" :class="bellClasses" text-4xl top--10 absolute />
+    <div
+      transition-all-1000 i-mdi-bell style="left: 50%; transform: translate(-50%, -50%);"
+      :class="bellClasses" text-4xl top--10 absolute
+    />
     <div flex="~ row grow" gap-2>
       <span text-right font-mono w-full>{{ formatTime(storedRestSeconds) }}</span>
       <span w-full>Rest</span>
