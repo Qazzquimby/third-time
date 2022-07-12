@@ -98,6 +98,7 @@ declare global {
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
   const reset: typeof import('./src/composables/state')['reset']
   const resolveComponent: typeof import('vue')['resolveComponent']
+  const runTour: typeof import('./src/composables/tour')['runTour']
   const setMinutesSinceModeChange: typeof import('./src/composables/state')['setMinutesSinceModeChange']
   const setTimerMode: typeof import('./src/composables/state')['setTimerMode']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -372,6 +373,7 @@ declare module '@vue/runtime-core' {
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
     readonly reset: UnwrapRef<typeof import('./src/composables/state')['reset']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
+    readonly runTour: UnwrapRef<typeof import('./src/composables/tour')['runTour']>
     readonly setMinutesSinceModeChange: UnwrapRef<typeof import('./src/composables/state')['setMinutesSinceModeChange']>
     readonly setTimerMode: UnwrapRef<typeof import('./src/composables/state')['setTimerMode']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>

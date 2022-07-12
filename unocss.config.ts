@@ -14,6 +14,7 @@ export default defineConfig({
     ['icon-btn', 'text-[0.9em] inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600 !outline-none'],
     ['shepherd-btn', 'bg-transparent text-white hover:bg-slate-500 py-2 px-4 border border-slate-300 hover:border-transparent rounded w-full'],
     ['glass', 'bg-gradient-to-b from-white:25 to bg-white:10 border-rd-10 border-solid border-1px border-white:30'],
+    ['pomodoro-link', 'bold text-red-300 hover:text-red-100 underline'],
   ],
   presets: [
     presetUno(),

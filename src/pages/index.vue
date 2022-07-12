@@ -38,14 +38,10 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div h-screen overflow-y-scroll style="scroll-snap-type: y mandatory">
+  <div h-screen overflow-y-scroll style="scroll-snap-type: y proximity">
     <the-timer />
     <div h-screen style="scroll-snap-align: start">
       <about-page />
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
