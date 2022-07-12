@@ -94,7 +94,7 @@
           It may help to set small concrete tasks and break when you complete one.
           If it feels impossible, maybe switch to <a pomodoro-link href="https://pomofocus.io">Pomodoro</a> which tells you exactly when to take your breaks.
         </p>
-        <p>What you do during your break matters. Relax, don't keep mentally engaging with the work, or you won't come back refreshed.</p>
+        <p>What you do during your break matters. Relax your brain, don't keep mentally engaging with the work, or you won't come back refreshed.</p>
         <h3 text-xl mt-4>
           ⏹️🛏️ Stopping
         </h3>
