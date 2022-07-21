@@ -6,6 +6,7 @@ const audio = new Audio(
 )
 watch(storedRestSeconds, (newSeconds, oldSeconds) => {
   if (oldSeconds >= 0 && newSeconds < 0) {
+    console.log(`previous rest ${oldSeconds} seconds. Current rest ${newSeconds} seconds.`)
     audio.play()
   }
 })
