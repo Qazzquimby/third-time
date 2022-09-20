@@ -21,7 +21,9 @@ const classes = computed(() => {
   <div
     ref="rootNode"
     text-center
-    transition-all-1000 relative :class="classes"
+    transition-all-1000 relative
+    max-h-2rem
+    :class="classes"
     @keyup.esc="$emit('hide')"
   >
     <p>
