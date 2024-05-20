@@ -129,7 +129,8 @@ export const isStopped = computed(() => {
 
 export function formatTime(inputSeconds: number): string {
   const duration = Duration.fromMillis(inputSeconds * 1000)
-  let { hours = 0, minutes = 0, seconds = 0 } = duration.shiftTo('hours', 'minutes', 'seconds').toObject()
+  // let { hours = 0, minutes = 0, seconds = 0 } = duration.shiftTo('hours', 'minutes', 'seconds').toObject()
+  let { hours = 0, minutes = 0, seconds = 0} = duration.shiftTo('hours', 'minutes', 'seconds', 'milliseconds').toObject()
 
   hours = Math.abs(hours)
   minutes = Math.abs(minutes)
