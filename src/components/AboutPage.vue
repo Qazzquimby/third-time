@@ -46,10 +46,10 @@
           <li>Sometimes your work day just doesn't fit nicely into uninterrupted 25+5 minute blocks, and it'd be nice to have a system that survives anyway.</li>
         </ul>
         <p>
-          If you have great difficulty getting yourself to take a break without an alarm, or you never feel 25 minutes blocks are too long or short,
-          then I'd go for <a pomodoro-link href="https://pomofocus.io">Pomodoro</a>.
+          If you have difficulty getting yourself to take a break without an alarm, or you've never had a problem with 25 minute blocks,
+          then I'd recommend <a pomodoro-link href="https://pomofocus.io">Pomodoro</a>.
         </p>
-        <p>If you Pomodoro's bugged you, or want to optimize your break-taking, this is for you ❤️</p>
+        <p>If Pomodoro has bugged you, or you think you can read your needs better than a timer, this is for you ❤️</p>
         <p text-sm op-70>
           ThirdTime's default rest ratio of 1/3 is actually the same as Pomodoro rest, when you take into account their periodic long-breaks.
         </p>
@@ -65,7 +65,7 @@
           If you notice yourself distractedly half-working, you should stop tracking it as work time and take a rest.
         </p>
         <p>
-          Unitasking - working on one thing at a time, is very important for efficiency.
+          Working on one thing at a time, is very important for efficiency.
           Consider choosing a concrete task for yourself each time you press ▶️
         </p>
         <h3 text-xl mt-4>
@@ -76,7 +76,7 @@
         />
         <p>
           The key idea in ThirdTime is to take your breaks when you need them.
-          That can be short, like if you're brain-tired doing something unpleasant, or can be long if you get into a good flow.
+          That can be often, like if you're brain-tired doing something unpleasant, or can be rarely if you get into a good flow that isn't tiring you.
         </p>
         <p>
           When you take a break, you don't need to take up all the rest time time.
@@ -85,7 +85,7 @@
         <p>
           But don't go over your earned rest time.
           Stored rest time can go negative, but you shouldn't be letting it run negative on purpose.
-          If you regularly find you need more rest time than you have, consider eliminating distractions, or changing the rest ratio to 1/2 for a while.
+          If you regularly find you need more rest time than you have, consider eliminating distractions and trying to improve the cause of your tiredness (sleep, diet, pain, etc), and change the rest ratio to 1/2 for a while.
         </p>
         <p>
           Many people work for too long without rest, ending up tired, cranky, and ineffective.
@@ -101,7 +101,7 @@
         <div
           w-48 h2 border-blue-300 border-4 content-empty
         />
-        <p>Stopping is for rest that doesn't need tracking. The end of the work day, a sit-down meal, an emergency away from your desk - any time you don't care if an alarm says you should get back to work.</p>
+        <p>Stopping is for rest that doesn't need tracking. The end of the work day, a sit-down meal, an emergency away from your desk - any time when you don't care if an alarm says you should get back to work.</p>
         <p>Stopping still takes rest time, but it'll never go below 0.</p>
 
         <h4 text-lg mt-4 mb--2>
